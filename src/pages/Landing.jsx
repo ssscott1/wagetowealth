@@ -1,0 +1,172 @@
+import { Link } from 'react-router-dom'
+
+const features = [
+  { icon: '📚', title: '10 Expert Modules', desc: 'Budgeting, mortgages, super, shares — comprehensive financial education designed for Australian employees.' },
+  { icon: '🧮', title: '10 Live Calculators', desc: 'Mortgage repayments, savings goals, debt payoff, and more — all fully functional and client-side.' },
+  { icon: '🎮', title: 'Gamified Quizzes', desc: 'Earn badges, track your Financial Literacy Score, and climb the anonymous leaderboard.' },
+  { icon: '✅', title: 'ASIC Compliant', desc: 'General information only. No personal advice, no product endorsements. Safe for employer distribution.' },
+  { icon: '🏢', title: 'White-Label Ready', desc: 'Add your company logo and branding. Employees see your name, not ours.' },
+  { icon: '🔒', title: 'Privacy First', desc: 'Employee financial data is never visible to employers. Full row-level security via Supabase.' },
+]
+
+const PLANS = [
+  { name: 'Starter', price: '$299', period: '/month', employees: 'Up to 50 employees', features: ['All 10 modules', 'All calculators', 'Quiz engine', 'Aggregate analytics', 'Email support'], cta: 'Start Free Trial' },
+  { name: 'Growth', price: '$599', period: '/month', employees: 'Up to 200 employees', features: ['Everything in Starter', 'White-label branding', 'Anonymous leaderboard', 'Hardship tracker', 'Priority support'], cta: 'Start Free Trial', popular: true },
+  { name: 'Enterprise', price: 'Custom', period: '', employees: 'Unlimited employees', features: ['Everything in Growth', 'Custom content modules', 'SSO / SAML', 'Dedicated success manager', 'SLA guarantee'], cta: 'Contact Sales' },
+]
+
+export default function Landing() {
+  return (
+    <div className="bg-[#F9F8F6]">
+      {/* Hero */}
+      <section className="bg-[#0F2B5B] text-white py-20 px-4">
+        <div className="max-w-5xl mx-auto text-center">
+          <div className="inline-block bg-[#D4A017]/20 text-[#D4A017] text-sm font-semibold px-4 py-1.5 rounded-full mb-5">
+            ASIC-Compliant Financial Literacy for Employers
+          </div>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-5 leading-tight" style={{ fontFamily: 'DM Sans, sans-serif' }}>
+            Give your team the financial skills to go from{' '}
+            <span className="text-[#D4A017]">wages to wealth</span>
+          </h1>
+          <p className="text-xl text-white/70 mb-8 max-w-2xl mx-auto">
+            A white-label financial literacy platform employers provide to their workforce. ASIC-safe, engaging, and measurable.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link to="/register/employer" className="bg-[#D4A017] text-[#0F2B5B] px-8 py-3.5 rounded-xl font-bold text-lg hover:bg-yellow-500 transition-colors shadow-lg">
+              Start Free Trial
+            </Link>
+            <Link to="/pricing" className="border-2 border-white/30 text-white px-8 py-3.5 rounded-xl font-semibold text-lg hover:bg-white/10 transition-colors">
+              Book a Demo
+            </Link>
+          </div>
+          <p className="text-white/40 text-sm mt-4">No credit card required · 30-day free trial · Cancel anytime</p>
+        </div>
+      </section>
+
+      {/* Social proof bar */}
+      <div className="bg-white border-b border-gray-100 py-4">
+        <div className="max-w-5xl mx-auto px-4 flex flex-wrap justify-center gap-8 text-gray-500 text-sm">
+          <span>✓ ASIC General Advice Compliant</span>
+          <span>✓ Sourced from MoneySmart.gov.au</span>
+          <span>✓ Australian-built & hosted</span>
+          <span>✓ SOC2-ready infrastructure</span>
+        </div>
+      </div>
+
+      {/* Features */}
+      <section className="py-20 px-4">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-[#0F2B5B] mb-3" style={{ fontFamily: 'DM Sans' }}>Everything your team needs</h2>
+            <p className="text-gray-500 max-w-xl mx-auto">A complete financial wellness benefit — not a boring PDF, not a one-off webinar.</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {features.map(f => (
+              <div key={f.title} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                <div className="text-3xl mb-3">{f.icon}</div>
+                <h3 className="font-bold text-[#0F2B5B] mb-2" style={{ fontFamily: 'DM Sans' }}>{f.title}</h3>
+                <p className="text-gray-500 text-sm leading-relaxed">{f.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why employers */}
+      <section className="bg-[#0F2B5B] text-white py-20 px-4">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-3" style={{ fontFamily: 'DM Sans' }}>Why employers choose Wages to Wealth</h2>
+          </div>
+          <div className="grid md:grid-cols-2 gap-8">
+            {[
+              { title: 'Duty of Care', desc: 'Financial stress is the #1 productivity killer in Australian workplaces. Providing financial education demonstrates genuine care.' },
+              { title: 'ASIC-Safe by Design', desc: 'Every piece of content is general information only. No personal advice, no AFSL required. Legal from day one.' },
+              { title: 'Staff Retention', desc: 'Financial wellness benefits rank in the top 5 most valued employee perks. Differentiate your employer brand.' },
+              { title: 'EAP Extension', desc: 'Complement your existing Employee Assistance Program with proactive financial skills — before crisis hits.' },
+            ].map(item => (
+              <div key={item.title} className="flex gap-4">
+                <div className="w-10 h-10 bg-[#D4A017] rounded-lg flex-shrink-0 flex items-center justify-center text-[#0F2B5B] font-bold">✓</div>
+                <div>
+                  <h3 className="font-bold mb-1" style={{ fontFamily: 'DM Sans' }}>{item.title}</h3>
+                  <p className="text-white/70 text-sm">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing */}
+      <section className="py-20 px-4" id="pricing">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-[#0F2B5B] mb-3" style={{ fontFamily: 'DM Sans' }}>Simple, transparent pricing</h2>
+            <p className="text-gray-500">All plans include a 30-day free trial. No lock-in contracts.</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {PLANS.map(plan => (
+              <div key={plan.name} className={`rounded-2xl p-6 border-2 relative ${plan.popular ? 'border-[#D4A017] bg-white shadow-lg' : 'border-gray-100 bg-white shadow-sm'}`}>
+                {plan.popular && (
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#D4A017] text-[#0F2B5B] text-xs font-bold px-4 py-1 rounded-full">
+                    Most Popular
+                  </div>
+                )}
+                <h3 className="text-xl font-bold text-[#0F2B5B] mb-1" style={{ fontFamily: 'DM Sans' }}>{plan.name}</h3>
+                <div className="mb-1">
+                  <span className="text-3xl font-bold text-[#0F2B5B]">{plan.price}</span>
+                  <span className="text-gray-400 text-sm">{plan.period}</span>
+                </div>
+                <p className="text-gray-400 text-sm mb-4">{plan.employees}</p>
+                <ul className="space-y-2 mb-6">
+                  {plan.features.map(f => (
+                    <li key={f} className="flex items-start gap-2 text-sm text-gray-600">
+                      <span className="text-green-500 mt-0.5">✓</span>{f}
+                    </li>
+                  ))}
+                </ul>
+                <Link to="/register/employer"
+                  className={`block text-center py-2.5 rounded-xl font-semibold text-sm transition-colors ${plan.popular ? 'bg-[#0F2B5B] text-white hover:bg-[#1a3d7c]' : 'border border-[#0F2B5B] text-[#0F2B5B] hover:bg-blue-50'}`}>
+                  {plan.cta}
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="bg-gray-50 py-16 px-4">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl font-bold text-center text-[#0F2B5B] mb-10" style={{ fontFamily: 'DM Sans' }}>What HR teams are saying</h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              { quote: '"Our team engagement scores improved significantly after we launched Wages to Wealth. Financial stress is real and this helps."', name: 'Sarah T.', role: 'Head of People, Tech Co.' },
+              { quote: '"Finally a financial benefit that\'s actually ASIC compliant. I can recommend it to employees without any legal hesitation."', name: 'Mark R.', role: 'HR Director, Manufacturing' },
+              { quote: '"The calculators alone are worth it. Our employees use the mortgage calculator every week."', name: 'Jen L.', role: 'People Operations, Retail Group' },
+            ].map(t => (
+              <div key={t.name} className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+                <p className="text-gray-600 text-sm italic mb-4">"{t.quote.replace(/^"|"$/g, '')}"</p>
+                <div>
+                  <div className="font-semibold text-[#0F2B5B] text-sm">{t.name}</div>
+                  <div className="text-gray-400 text-xs">{t.role}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-16 px-4 bg-[#D4A017]">
+        <div className="max-w-2xl mx-auto text-center">
+          <h2 className="text-3xl font-bold text-[#0F2B5B] mb-3" style={{ fontFamily: 'DM Sans' }}>Ready to invest in your team's financial future?</h2>
+          <p className="text-[#0F2B5B]/70 mb-6">Start your 30-day free trial today. Setup takes under 5 minutes.</p>
+          <Link to="/register/employer" className="bg-[#0F2B5B] text-white px-8 py-3.5 rounded-xl font-bold text-lg hover:bg-[#1a3d7c] transition-colors inline-block">
+            Get Started Free
+          </Link>
+        </div>
+      </section>
+    </div>
+  )
+}
