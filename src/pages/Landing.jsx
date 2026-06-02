@@ -72,6 +72,52 @@ export default function Landing() {
         </div>
       </section>
 
+      {/* Built for Employers — Workplace differentiator */}
+      <section className="py-20 px-4 bg-gradient-to-br from-[#0F2B5B] to-[#1a3d7c] text-white">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-4">
+            <div className="inline-block bg-[#D4A017]/20 text-[#D4A017] text-sm font-semibold px-4 py-1.5 rounded-full mb-4">
+              The Only Platform Built Around the Employee Experience
+            </div>
+            <h2 className="text-3xl font-bold mb-3" style={{ fontFamily: 'DM Sans' }}>
+              Not just budgeting — the topics your people <em>actually need at work</em>
+            </h2>
+            <p className="text-white/70 max-w-2xl mx-auto text-lg">
+              Wages to Wealth includes 8 employer-specific modules that generic financial literacy tools completely ignore.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mt-10 mb-10">
+            {[
+              { icon: '🧾', title: 'Understanding Your Pay Slip', desc: 'Check you\'re being paid correctly, decode PAYG, and know your legal rights.' },
+              { icon: '📦', title: 'Salary Packaging & FBT', desc: 'Reduce taxable income with pre-tax benefits. NFP employees: maximise your $15,900 FBT-free cap.' },
+              { icon: '💼', title: 'Super Contributions Strategy', desc: 'Salary sacrifice, FHSS, carry-forward, co-contributions — go beyond the SG rate.' },
+              { icon: '🚘', title: 'Novated Leasing', desc: 'The most misunderstood benefit. EV? Now FBT-exempt. We explain it simply.' },
+              { icon: '📊', title: 'Income Tax & Your Return', desc: 'Tax brackets, deductions, HECS, Medicare — lodge confidently with myTax.' },
+              { icon: '⚖️', title: 'Workplace Entitlements', desc: 'Know your NES rights, award rates, super obligations, and redundancy entitlements.' },
+              { icon: '📊', title: 'Employee Share Schemes', desc: 'RSUs, options, start-up concessions — understand the tax before you act.' },
+              { icon: '🔄', title: 'Life Events', desc: 'Marriage, baby, separation, redundancy — practical financial steps for each.' },
+            ].map(item => (
+              <div key={item.title} className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/10 hover:bg-white/15 transition-colors">
+                <div className="text-2xl mb-2">{item.icon}</div>
+                <h3 className="font-bold text-sm mb-1" style={{ fontFamily: 'DM Sans' }}>{item.title}</h3>
+                <p className="text-white/60 text-xs leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="bg-white/10 border border-white/20 rounded-2xl p-6 text-center">
+            <p className="text-white/80 text-sm mb-3">
+              <strong className="text-white">Help your team understand their entitlements, benefits, and options.</strong><br />
+              When employees know how to read a pay slip, use salary packaging, and plan for redundancy — they are less stressed, more productive, and more loyal.
+            </p>
+            <Link to="/register/employer" className="bg-[#D4A017] text-[#0F2B5B] px-6 py-2.5 rounded-xl font-bold text-sm hover:bg-yellow-500 transition-colors inline-block">
+              See All 18 Modules →
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Why employers */}
       <section className="bg-[#0F2B5B] text-white py-20 px-4">
         <div className="max-w-5xl mx-auto">

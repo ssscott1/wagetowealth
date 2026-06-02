@@ -165,4 +165,12 @@ INSERT INTO modules (id, title, slug, category, is_published, sort_order) VALUES
 (7, 'Personal Loans', 'personal-loans', 'Borrowing', TRUE, 7),
 (8, 'Buying an Investment Property', 'investment-property', 'Investing', TRUE, 8),
 (9, 'Buying Shares & ETFs', 'shares-etfs', 'Investing', TRUE, 9),
-(10, 'Superannuation', 'superannuation', 'Retirement', TRUE, 10);
+(10, 'Superannuation', 'superannuation', 'Retirement', TRUE, 10),
+(11, 'Understanding Your Pay Slip', 'understanding-your-pay-slip', 'Workplace', TRUE, 11),
+(12, 'Salary Packaging & Salary Sacrifice', 'salary-packaging', 'Workplace', TRUE, 12),
+(13, 'Super: Salary Sacrifice & Voluntary Contributions', 'super-contributions', 'Workplace', TRUE, 13),
+(14, 'Novated Leasing Explained', 'novated-leasing', 'Workplace', TRUE, 14),
+(15, 'Income Tax & Your Tax Return', 'income-tax-return', 'Workplace', TRUE, 15),
+(16, 'Knowing Your Workplace Entitlements', 'workplace-entitlements', 'Workplace', TRUE, 16),
+(17, 'Employee Share Schemes (ESS)', 'employee-share-schemes', 'Workplace', TRUE, 17),
+(18, 'Managing Money Through Life Events', 'life-events', 'Workplace', TRUE, 18);

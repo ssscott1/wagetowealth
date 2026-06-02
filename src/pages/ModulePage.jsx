@@ -11,6 +11,12 @@ import DebtPayoff from '../components/calculators/DebtPayoff'
 import InvestmentProperty from '../components/calculators/InvestmentProperty'
 import CompoundGrowth from '../components/calculators/CompoundGrowth'
 import SuperProjection from '../components/calculators/SuperProjection'
+import PaygTakeHome from '../components/calculators/PaygTakeHome'
+import SalarySacrificeSaving from '../components/calculators/SalarySacrificeSaving'
+import SuperSacrificeProjection from '../components/calculators/SuperSacrificeProjection'
+import NovatedVsLoan from '../components/calculators/NovatedVsLoan'
+import RedundancyEstimator from '../components/calculators/RedundancyEstimator'
+import EssTaxEstimator from '../components/calculators/EssTaxEstimator'
 import NegotiationGuide from './NegotiationGuide'
 
 const CALC_MAP = {
@@ -22,6 +28,12 @@ const CALC_MAP = {
   'investment-property': InvestmentProperty,
   'compound-growth': CompoundGrowth,
   'superannuation': SuperProjection,
+  'payg-take-home': PaygTakeHome,
+  'salary-sacrifice-saving': SalarySacrificeSaving,
+  'super-sacrifice-projection': SuperSacrificeProjection,
+  'novated-vs-loan': NovatedVsLoan,
+  'redundancy-estimator': RedundancyEstimator,
+  'ess-tax-estimator': EssTaxEstimator,
 }
 
 export default function ModulePage() {

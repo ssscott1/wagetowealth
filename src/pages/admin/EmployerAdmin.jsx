@@ -2,13 +2,16 @@ import { useState, useEffect } from 'react'
 import { useAuth } from '../../hooks/useAuth'
 import { supabase } from '../../lib/supabase'
 
+const WORKPLACE_MODULE_IDS = [11, 12, 13, 14, 15, 16, 17, 18]
+const GENERAL_MODULE_IDS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
 export default function EmployerAdmin() {
   const { profile } = useAuth()
   const employer = profile?.employers
   const [employees, setEmployees] = useState([])
   const [stats, setStats] = useState({ total: 0, started: 0, avgScore: 0, hardship: 0 })
+  const [moduleEngagement, setModuleEngagement] = useState({ workplace: 0, general: 0 })
   const [inviteLink, setInviteLink] = useState('')
-  const [inviteEmail, setInviteEmail] = useState('')
   const [tab, setTab] = useState('overview')
 
   useEffect(() => {
@@ -37,8 +40,21 @@ export default function EmployerAdmin() {
     const scores = (emps || []).map(e => e.literacy_score || 0)
     const avgScore = scores.length ? Math.round(scores.reduce((s, v) => s + v, 0) / scores.length) : 0
 
+    // Workplace vs General module engagement
+    const { data: allAttempts } = await supabase
+      .from('quiz_attempts')
+      .select('employee_id, module_id')
+    const empAttempts2 = (allAttempts || []).filter(a => empIds.includes(a.employee_id))
+    const workplaceStarters = new Set(empAttempts2.filter(a => WORKPLACE_MODULE_IDS.includes(a.module_id)).map(a => a.employee_id)).size
+    const generalStarters = new Set(empAttempts2.filter(a => GENERAL_MODULE_IDS.includes(a.module_id)).map(a => a.employee_id)).size
+    const total = (emps || []).length
+
     setEmployees(emps || [])
-    setStats({ total: (emps || []).length, started, avgScore, hardship: (hardship || []).length })
+    setStats({ total, started, avgScore, hardship: (hardship || []).length })
+    setModuleEngagement({
+      workplace: total > 0 ? Math.round((workplaceStarters / total) * 100) : 0,
+      general: total > 0 ? Math.round((generalStarters / total) * 100) : 0,
+    })
   }
 
   const copyLink = () => {
@@ -86,6 +102,32 @@ export default function EmployerAdmin() {
                 <div className="text-xs text-gray-400 mt-0.5">{s.label}</div>
               </div>
             ))}
+          </div>
+
+          {/* Workplace Modules Engagement Widget */}
+          <div className="bg-white rounded-2xl border-2 border-[#D4A017]/30 shadow-sm p-5 mb-6">
+            <div className="flex items-center gap-2 mb-4">
+              <span className="text-xl">🏢</span>
+              <h3 className="font-bold text-[#0F2B5B]" style={{ fontFamily: 'DM Sans' }}>Workplace Modules Adoption</h3>
+              <span className="ml-auto text-xs bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded-full font-semibold">Duty of Care</span>
+            </div>
+            <p className="text-xs text-gray-400 mb-4">These modules cover pay slips, salary packaging, novated leasing, super contributions, tax, entitlements, ESS, and life events — the topics employees need most at work.</p>
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { label: 'Workplace Modules (11–18)', value: moduleEngagement.workplace, color: '#D4A017', bg: 'bg-yellow-50' },
+                { label: 'General Finance (1–10)', value: moduleEngagement.general, color: '#0F2B5B', bg: 'bg-blue-50' },
+              ].map(row => (
+                <div key={row.label} className={`${row.bg} rounded-xl p-4`}>
+                  <div className="flex justify-between text-xs font-semibold mb-2">
+                    <span className="text-gray-600">{row.label}</span>
+                    <span style={{ color: row.color }}>{row.value}% started</span>
+                  </div>
+                  <div className="h-2.5 bg-white/80 rounded-full overflow-hidden">
+                    <div className="h-full rounded-full transition-all" style={{ width: `${row.value}%`, backgroundColor: row.color }} />
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
