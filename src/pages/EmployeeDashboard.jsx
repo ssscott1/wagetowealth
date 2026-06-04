@@ -97,6 +97,17 @@ export default function EmployeeDashboard() {
         </div>
       </div>
 
+      {/* Kids section callout */}
+      <div className="bg-gradient-to-r from-purple-600 to-pink-500 rounded-2xl p-5 mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <div className="text-white font-bold text-base mb-0.5" style={{ fontFamily: 'DM Sans' }}>🐷 Money School for Kids</div>
+          <p className="text-white/80 text-sm">Free for your children aged 12–16 — 8 fun lessons on money, saving and investing.</p>
+        </div>
+        <Link to="/kids" className="flex-shrink-0 bg-white text-purple-700 px-4 py-2.5 rounded-xl font-bold text-sm hover:bg-purple-50 transition-colors whitespace-nowrap">
+          Share with your kids →
+        </Link>
+      </div>
+
       {/* Recent quiz results */}
       {attempts.length > 0 && (
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
