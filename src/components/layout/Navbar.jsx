@@ -5,21 +5,12 @@ import { useState } from 'react'
 export default function Navbar() {
   const { user, role, signOut } = useAuth()
   const navigate = useNavigate()
-  const location = useLocation()
   const [menuOpen, setMenuOpen] = useState(false)
 
   const handleSignOut = async () => {
     await signOut()
     navigate('/')
   }
-
-  const isApp = location.pathname.startsWith('/dashboard') ||
-    location.pathname.startsWith('/modules') ||
-    location.pathname.startsWith('/calculators') ||
-    location.pathname.startsWith('/get-help') ||
-    location.pathname.startsWith('/admin') ||
-    location.pathname.startsWith('/superadmin') ||
-    location.pathname.startsWith('/account')
 
   return (
     <nav className="bg-[#0F2B5B] text-white shadow-lg sticky top-0 z-50">
@@ -30,18 +21,20 @@ export default function Navbar() {
             <span className="font-bold text-lg" style={{ fontFamily: 'DM Sans, sans-serif' }}>Wages to Wealth</span>
           </Link>
 
+          {/* Desktop nav — not logged in */}
           {!user && (
             <div className="hidden md:flex items-center gap-6">
               <Link to="/pricing" className="text-white/80 hover:text-white text-sm transition-colors">Pricing</Link>
               <Link to="/about" className="text-white/80 hover:text-white text-sm transition-colors">About</Link>
-              <Link to="/login" className="text-white/80 hover:text-white text-sm transition-colors">Login</Link>
+              <Link to="/login" className="text-white/80 hover:text-white text-sm transition-colors font-semibold">Login</Link>
               <Link to="/register/employer" className="bg-[#D4A017] text-[#0F2B5B] px-4 py-2 rounded-lg text-sm font-semibold hover:bg-yellow-500 transition-colors">
                 Get Started
               </Link>
             </div>
           )}
 
-          {user && isApp && (
+          {/* Desktop nav — logged in */}
+          {user && (
             <div className="hidden md:flex items-center gap-4">
               {role === 'employee' && (
                 <>
@@ -72,25 +65,32 @@ export default function Navbar() {
         </div>
       </div>
 
+      {/* Mobile menu */}
       {menuOpen && (
         <div className="md:hidden bg-[#0a1f42] px-4 pb-4 space-y-2">
           {!user && (
             <>
               <Link to="/pricing" className="block py-2 text-white/80 text-sm" onClick={() => setMenuOpen(false)}>Pricing</Link>
               <Link to="/about" className="block py-2 text-white/80 text-sm" onClick={() => setMenuOpen(false)}>About</Link>
-              <Link to="/login" className="block py-2 text-white/80 text-sm" onClick={() => setMenuOpen(false)}>Login</Link>
-              <Link to="/register/employer" className="block py-2 text-[#D4A017] text-sm font-semibold" onClick={() => setMenuOpen(false)}>Get Started</Link>
+              <Link to="/login" className="block py-2 text-white text-sm font-semibold" onClick={() => setMenuOpen(false)}>Login</Link>
+              <Link to="/register/employer" className="block py-2 text-[#D4A017] text-sm font-semibold" onClick={() => setMenuOpen(false)}>Get Started →</Link>
             </>
           )}
           {user && (
             <>
-              <Link to="/dashboard" className="block py-2 text-white/80 text-sm" onClick={() => setMenuOpen(false)}>Dashboard</Link>
               {role === 'employee' && (
                 <>
+                  <Link to="/dashboard" className="block py-2 text-white/80 text-sm" onClick={() => setMenuOpen(false)}>Dashboard</Link>
                   <Link to="/modules" className="block py-2 text-white/80 text-sm" onClick={() => setMenuOpen(false)}>Modules</Link>
                   <Link to="/calculators" className="block py-2 text-white/80 text-sm" onClick={() => setMenuOpen(false)}>Calculators</Link>
                   <Link to="/get-help" className="block py-2 text-red-400 text-sm font-semibold" onClick={() => setMenuOpen(false)}>🆘 Get Help</Link>
                 </>
+              )}
+              {role === 'employer_admin' && (
+                <Link to="/admin" className="block py-2 text-white/80 text-sm" onClick={() => setMenuOpen(false)}>Admin Dashboard</Link>
+              )}
+              {role === 'super_admin' && (
+                <Link to="/superadmin" className="block py-2 text-white/80 text-sm" onClick={() => setMenuOpen(false)}>Super Admin</Link>
               )}
               <Link to="/account" className="block py-2 text-white/80 text-sm" onClick={() => setMenuOpen(false)}>Account</Link>
               <button onClick={() => { handleSignOut(); setMenuOpen(false) }} className="block py-2 text-white/60 text-sm">Sign Out</button>

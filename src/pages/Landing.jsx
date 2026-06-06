@@ -40,6 +40,10 @@ export default function Landing() {
             </Link>
           </div>
           <p className="text-white/40 text-sm mt-4">No credit card required · 30-day free trial · Cancel anytime</p>
+          <p className="text-white/50 text-sm mt-2">
+            Already have an account?{' '}
+            <Link to="/login" className="text-[#D4A017] hover:underline font-semibold">Sign in →</Link>
+          </p>
         </div>
       </section>
 
