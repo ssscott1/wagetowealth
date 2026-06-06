@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { supabase } from '../../lib/supabase'
 import { useAuth } from '../../hooks/useAuth'
 
@@ -75,15 +76,28 @@ export default function QuizEngine({ questions, moduleId, onComplete }) {
         <div className={`inline-block px-4 py-1.5 rounded-full text-sm font-semibold ${tier.color} bg-white/70 mb-4`}>
           {tier.label}
         </div>
-        <p className="text-gray-600 text-sm mb-4">
+        <p className="text-gray-600 text-sm mb-6">
           You answered {answers.filter((a, i) => a === questions[i].correct).length} of {questions.length} correctly.
         </p>
-        <button
-          onClick={() => { setCurrent(0); setSelected(null); setAnswers([]); setShowFeedback(false); setCompleted(false); setScore(0) }}
-          className="bg-[#0F2B5B] text-white px-6 py-2.5 rounded-lg text-sm font-semibold hover:bg-[#1a3d7c] transition-colors"
-        >
-          Retry Quiz
-        </button>
+        {score === 100 ? (
+          <Link to="/modules"
+            className="inline-block bg-[#D4A017] text-[#0F2B5B] px-6 py-2.5 rounded-lg text-sm font-bold hover:bg-yellow-400 transition-colors">
+            Back to Modules →
+          </Link>
+        ) : (
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <button
+              onClick={() => { setCurrent(0); setSelected(null); setAnswers([]); setShowFeedback(false); setCompleted(false); setScore(0) }}
+              className="bg-[#0F2B5B] text-white px-6 py-2.5 rounded-lg text-sm font-semibold hover:bg-[#1a3d7c] transition-colors"
+            >
+              Retry Quiz
+            </button>
+            <Link to="/modules"
+              className="border-2 border-[#0F2B5B] text-[#0F2B5B] px-6 py-2.5 rounded-lg text-sm font-semibold hover:bg-[#0F2B5B] hover:text-white transition-colors">
+              Back to Modules
+            </Link>
+          </div>
+        )}
       </div>
     )
   }
