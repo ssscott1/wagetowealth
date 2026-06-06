@@ -1,14 +1,16 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import { useAuth } from '../../hooks/useAuth'
 
 export default function Login() {
-  const { signIn, role } = useAuth()
-  const navigate = useNavigate()
+  const { signIn, user } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+
+  // Once auth state updates, redirect away from login
+  if (user) return <Navigate to="/dashboard" replace />
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -16,11 +18,8 @@ export default function Login() {
     setLoading(true)
     const { error } = await signIn(email, password)
     setLoading(false)
-    if (error) {
-      setError(error.message)
-    } else {
-      navigate('/dashboard')
-    }
+    if (error) setError(error.message)
+    // No navigate() — the `if (user)` above handles redirect once context updates
   }
 
   return (
