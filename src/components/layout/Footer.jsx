@@ -43,7 +43,7 @@ export default function Footer() {
           <p className="text-white/40 text-xs leading-relaxed max-w-4xl">
             <strong className="text-white/60">Disclaimer:</strong> Wages to Wealth provides general financial information and education only. It is not a financial adviser and does not hold an Australian Financial Services Licence. Content does not constitute personal financial advice and does not consider your individual objectives, financial situation, or needs. Always seek advice from a licensed financial adviser before making financial decisions. Content is sourced from publicly available materials including moneysmart.gov.au.
           </p>
-          <p className="text-white/30 text-xs mt-3">© 2025 Wages to Wealth. Sierra Bravo Capital Pty Ltd. All rights reserved.</p>
+          <p className="text-white/30 text-xs mt-3">© 2026 Wages to Wealth. Sierra Bravo Capital Pty Ltd. All rights reserved.</p>
         </div>
       </div>
     </footer>
