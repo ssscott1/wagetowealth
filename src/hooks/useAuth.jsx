@@ -56,7 +56,7 @@ export function AuthProvider({ children }) {
     // Check employee
     const { data: employee } = await supabase
       .from('employees')
-      .select('*, employers(*)')
+      .select('*, employers(*), preferred_name')
       .eq('user_id', user.id)
       .single()
 

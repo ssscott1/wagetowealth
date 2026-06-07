@@ -7,6 +7,7 @@ CREATE TABLE employers (
   name TEXT NOT NULL,
   logo_url TEXT,
   slug TEXT UNIQUE NOT NULL,
+  domain TEXT,
   stripe_customer_id TEXT,
   stripe_subscription_id TEXT,
   subscription_status TEXT DEFAULT 'trial' CHECK (subscription_status IN ('trial', 'active', 'past_due', 'cancelled')),
@@ -29,6 +30,7 @@ CREATE TABLE employees (
   employer_id UUID REFERENCES employers(id) ON DELETE CASCADE NOT NULL,
   user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
   email TEXT NOT NULL,
+  preferred_name TEXT,
   onboarded_at TIMESTAMPTZ DEFAULT NOW(),
   literacy_score INTEGER DEFAULT 0 CHECK (literacy_score >= 0 AND literacy_score <= 100),
   UNIQUE(user_id)

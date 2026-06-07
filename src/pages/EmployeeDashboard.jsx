@@ -29,7 +29,7 @@ export default function EmployeeDashboard() {
   }, [profile?.id])
 
   const completedModuleIds = [...new Set(attempts.map(a => a.module_id))]
-  const firstName = user?.email?.split('@')[0] || 'there'
+  const firstName = profile?.preferred_name || user?.email?.split('@')[0] || 'there'
 
   const tier =
     literacyScore >= 90 ? 'Expert' :
