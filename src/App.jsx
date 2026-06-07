@@ -6,6 +6,7 @@ import Landing from './pages/Landing'
 import Login from './pages/auth/Login'
 import RegisterEmployer from './pages/auth/RegisterEmployer'
 import RegisterEmployee from './pages/auth/RegisterEmployee'
+import ForgotPassword from './pages/auth/ForgotPassword'
 import Dashboard from './pages/Dashboard'
 import ModuleList from './pages/ModuleList'
 import ModulePage from './pages/ModulePage'
@@ -56,6 +57,7 @@ function AppRoutes() {
         <Route path="/login" element={<Login />} />
         <Route path="/register/employer" element={<RegisterEmployer />} />
         <Route path="/register/employee" element={<RegisterEmployee />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
         <Route path="/modules" element={<ProtectedRoute><ModuleList /></ProtectedRoute>} />
         <Route path="/modules/:slug" element={<ProtectedRoute><ModulePage /></ProtectedRoute>} />

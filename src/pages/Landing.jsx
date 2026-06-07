@@ -62,8 +62,59 @@ export default function Landing() {
         </div>
       </div>
 
-      {/* Features */}
+      {/* How it works */}
       <section className="py-20 px-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="text-[#D4A017] font-semibold text-sm mb-2 uppercase tracking-wider">Simple Setup</p>
+            <h2 className="text-3xl font-bold text-[#0F2B5B] mb-3" style={{ fontFamily: 'DM Sans' }}>Up and running in minutes</h2>
+            <p className="text-gray-500 max-w-xl mx-auto">No IT project. No integration required. Just sign up, invite your team, and watch the learning begin.</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8 relative">
+            {/* connector line desktop */}
+            <div className="hidden md:block absolute top-10 left-[calc(16.6%+1rem)] right-[calc(16.6%+1rem)] h-0.5 bg-gray-200 z-0" />
+            {[
+              {
+                step: '1',
+                icon: '🏢',
+                title: 'Employer signs up',
+                desc: 'Register with your work email and verify your company domain. Takes under 5 minutes.',
+              },
+              {
+                step: '2',
+                icon: '📨',
+                title: 'Invite your team',
+                desc: 'Copy your unique invite link from the admin dashboard and share it via email, Slack, or your intranet.',
+              },
+              {
+                step: '3',
+                icon: '🚀',
+                title: 'Employees start learning',
+                desc: 'Staff click the link, create a password, and immediately access all 18 modules, 17 calculators and their Financial Literacy Score.',
+              },
+            ].map(item => (
+              <div key={item.step} className="relative z-10 flex flex-col items-center text-center">
+                <div className="w-20 h-20 bg-white rounded-2xl shadow-md border border-gray-100 flex items-center justify-center text-3xl mb-4 relative">
+                  {item.icon}
+                  <span className="absolute -top-2.5 -right-2.5 w-6 h-6 bg-[#D4A017] text-[#0F2B5B] rounded-full text-xs font-black flex items-center justify-center">
+                    {item.step}
+                  </span>
+                </div>
+                <h3 className="font-bold text-[#0F2B5B] mb-2" style={{ fontFamily: 'DM Sans' }}>{item.title}</h3>
+                <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+          <div className="text-center mt-10">
+            <Link to="/register/employer" className="bg-[#0F2B5B] text-white px-8 py-3.5 rounded-xl font-bold hover:bg-[#1a3d7c] transition-colors inline-block">
+              Get Started Free →
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Features */}
+      <section className="py-20 px-4 bg-gray-50">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-[#0F2B5B] mb-3" style={{ fontFamily: 'DM Sans' }}>Everything your team needs</h2>
@@ -71,7 +122,7 @@ export default function Landing() {
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {features.map(f => (
-              <div key={f.title} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+              <div key={f.title} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow group">
                 <div className="text-3xl mb-3">{f.icon}</div>
                 <h3 className="font-bold text-[#0F2B5B] mb-2" style={{ fontFamily: 'DM Sans' }}>{f.title}</h3>
                 <p className="text-gray-500 text-sm leading-relaxed">{f.desc}</p>
