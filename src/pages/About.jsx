@@ -1,8 +1,14 @@
 import { Link } from 'react-router-dom'
+import SEO from '../components/ui/SEO'
 
 export default function About() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-16">
+      <SEO
+        title="About"
+        path="/about"
+        description="Wages to Wealth is built by Australians for Australian workplaces. We provide ASIC-compliant financial literacy education as an employee benefit — helping workers go from wages to wealth."
+      />
       <h1 className="text-4xl font-bold text-[#0F2B5B] mb-4" style={{ fontFamily: 'DM Sans' }}>About Wages to Wealth</h1>
       <p className="text-xl text-gray-500 mb-8">Built by Australians, for Australian workplaces.</p>
       <div className="prose prose-slate max-w-none space-y-5 text-gray-600">

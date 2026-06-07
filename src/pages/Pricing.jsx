@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import SEO from '../components/ui/SEO'
 
 const PLANS = [
   { name: 'Starter', price: '$299', period: '/month', employees: 'Up to 50 employees', features: ['All 10 modules', 'All 10 calculators', 'Quiz engine + badges', 'Aggregate analytics', 'Email support'], cta: 'Start Free Trial' },
@@ -9,6 +10,11 @@ const PLANS = [
 export default function Pricing() {
   return (
     <div className="max-w-5xl mx-auto px-4 py-16">
+      <SEO
+        title="Pricing"
+        path="/pricing"
+        description="Simple, transparent pricing for Australian employers. Starter from $299/month for up to 50 employees. 30-day free trial, no credit card required."
+      />
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold text-[#0F2B5B] mb-3" style={{ fontFamily: 'DM Sans' }}>Simple, transparent pricing</h1>
         <p className="text-gray-500 text-lg">All plans include a 30-day free trial. No lock-in contracts. Cancel anytime.</p>

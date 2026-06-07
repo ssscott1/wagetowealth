@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import SEO from '../components/ui/SEO'
 
 const features = [
   { icon: '📚', title: '10 Expert Modules', desc: 'Budgeting, mortgages, super, shares — comprehensive financial education designed for Australian employees.' },
@@ -18,6 +19,10 @@ const PLANS = [
 export default function Landing() {
   return (
     <div className="bg-[#F9F8F6]">
+      <SEO
+        path="/"
+        description="Wages to Wealth is an ASIC-compliant financial literacy platform Australian employers provide to their workforce. 18 expert modules, 17 live calculators, gamified quizzes and a Financial Literacy Score — white-label ready."
+      />
       {/* Hero */}
       <section className="bg-[#0F2B5B] text-white py-20 px-4">
         <div className="max-w-5xl mx-auto text-center">

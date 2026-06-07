@@ -1,0 +1,67 @@
+# Wages to Wealth
+
+> ASIC-compliant financial literacy platform for Australian employers and their workforces.
+
+Wages to Wealth is a white-label financial education platform provided by employers to their employees. It covers personal finance and workplace-specific financial topics through interactive modules, live calculators, and gamified quizzes.
+
+## Product Overview
+
+- **Operator**: Sierra Bravo Capital Pty Ltd
+- **Target market**: Australian employers (SME to Enterprise) and their employees
+- **Compliance**: ASIC general advice compliant — general financial information only, no personal advice
+- **Pricing**: Starter $299/month (50 employees), Growth $599/month (200 employees), Enterprise custom
+
+## Learning Modules (18 total)
+
+### General Finance (Modules 1–10)
+1. Budgeting & Saving
+2. Banking Basics
+3. Debt & Credit
+4. Buying a House
+5. Getting a Mortgage
+6. Buying a Car
+7. Personal Loans
+8. Buying an Investment Property
+9. Buying Shares & ETFs
+10. Superannuation
+
+### Workplace & Employment (Modules 11–18)
+11. Understanding Your Pay Slip
+12. Salary Packaging & Salary Sacrifice
+13. Super: Salary Sacrifice & Voluntary Contributions
+14. Novated Leasing Explained
+15. Income Tax & Your Tax Return
+16. Knowing Your Workplace Entitlements
+17. Employee Share Schemes (ESS)
+18. Managing Money Through Life Events
+
+## Calculators (17 total)
+
+General: Budget Planner, Mortgage Repayment, Borrowing Power, Savings Goal, Compound Growth, Debt Payoff, Investment Property, Car Loan, Mortgage Rate Saving, Super Projection
+
+Workplace: PAYG Take-Home Pay, Salary Sacrifice Saving, Super Sacrifice Projection, Novated vs Car Loan, Redundancy Estimator, FHSS Estimator, ESS Tax Estimator
+
+## Key Features
+
+- Financial Literacy Score (0–100) for every employee, updated by quiz results
+- Gamified quizzes with instant feedback and explanations
+- Employer analytics dashboard with aggregate engagement data (no individual employee data exposed)
+- Financial hardship referral system linking to NDH, MoneySmart, AFCA, Lifeline
+- Money School: free kids financial education section for employees' children aged 12–16
+- White-label ready with employer branding
+
+## Money School (Kids Section)
+
+Free financial education for children of enrolled employees, ages 12–16. Public, no login required at /kids. 8 modules covering: money basics, budgeting, saving, banking safety, smart spending, investing, debt/BNPL, and superannuation.
+
+## Technical Stack
+
+- Frontend: React + Vite + Tailwind CSS
+- Backend: Supabase (PostgreSQL + Auth + Row Level Security)
+- Payments: Stripe
+- Hosting: Netlify
+- Australian jurisdiction, AUD pricing
+
+## Compliance Statement
+
+Wages to Wealth provides general financial information and education only. It is not a financial adviser and does not hold an Australian Financial Services Licence. Content does not constitute personal financial advice. Always seek advice from a licensed financial adviser before making financial decisions.

@@ -1,9 +1,15 @@
 import { Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 import { KIDS_MODULES } from '../../data/kidsModules'
 
 export default function KidsHome() {
   return (
     <div>
+      <Helmet>
+        <title>Money School — Free Financial Education for Kids aged 12–16</title>
+        <meta name="description" content="Money School by Wages to Wealth: 8 free lessons teaching teenagers about earning, budgeting, saving, banking, investing and superannuation. No login required." />
+        <link rel="canonical" href="https://wagestowealth.netlify.app/kids" />
+      </Helmet>
       {/* Hero */}
       <div className="relative overflow-hidden py-16 px-4 text-center">
         <div className="absolute inset-0 pointer-events-none">
