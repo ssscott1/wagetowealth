@@ -18,7 +18,7 @@ export default function RegisterEmployer() {
     if (step === 1) { setStep(2); return }
     setError('')
     setLoading(true)
-    const { data, error: signUpError } = await signUp(email, password)
+    const { data, error: signUpError } = await signUp(email, password, 'employer')
     if (signUpError) { setError(signUpError.message); setLoading(false); return }
     if (data.user) {
       const slug = companyName.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')

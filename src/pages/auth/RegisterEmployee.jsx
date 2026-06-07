@@ -17,7 +17,7 @@ export default function RegisterEmployee() {
     e.preventDefault()
     setError('')
     setLoading(true)
-    const { data, error: signUpError } = await signUp(email, password)
+    const { data, error: signUpError } = await signUp(email, password, 'employee')
     if (signUpError) { setError(signUpError.message); setLoading(false); return }
     if (data.user && employerId) {
       await supabase.from('employees').insert({

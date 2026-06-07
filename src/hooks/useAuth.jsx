@@ -76,11 +76,14 @@ export function AuthProvider({ children }) {
     return supabase.auth.signInWithPassword({ email, password })
   }
 
-  async function signUp(email, password) {
+  async function signUp(email, password, userType = 'employee') {
     return supabase.auth.signUp({
       email,
       password,
-      options: { emailRedirectTo: `${window.location.origin}/login` },
+      options: {
+        emailRedirectTo: `${window.location.origin}/login`,
+        data: { user_type: userType },
+      },
     })
   }
 
