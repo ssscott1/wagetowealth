@@ -37,18 +37,14 @@ export default function Landing() {
             A white-label financial literacy platform employers provide to their workforce. ASIC-safe, engaging, and measurable.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/register/employer" className="bg-[#D4A017] text-[#0F2B5B] px-8 py-3.5 rounded-xl font-bold text-lg hover:bg-yellow-500 transition-colors shadow-lg">
-              Start Free Trial
+            <Link to="/demo" className="bg-[#D4A017] text-[#0F2B5B] px-8 py-3.5 rounded-xl font-bold text-lg hover:bg-yellow-500 transition-colors shadow-lg">
+              👀 Try Employee Demo — Free
             </Link>
-            <Link to="/pricing" className="border-2 border-white/30 text-white px-8 py-3.5 rounded-xl font-semibold text-lg hover:bg-white/10 transition-colors">
-              Book a Demo
+            <Link to="/register/employer" className="border-2 border-white/30 text-white px-8 py-3.5 rounded-xl font-semibold text-lg hover:bg-white/10 transition-colors">
+              Set Up My Team →
             </Link>
           </div>
-          <p className="text-white/40 text-sm mt-4">No credit card required · 30-day free trial · Cancel anytime</p>
-          <p className="text-white/50 text-sm mt-2">
-            Already have an account?{' '}
-            <Link to="/login" className="text-[#D4A017] hover:underline font-semibold">Sign in →</Link>
-          </p>
+          <p className="text-white/40 text-sm mt-4">See exactly what your employees experience · Plans from $299/month</p>
         </div>
       </section>
 

@@ -37,6 +37,7 @@ export default function Navbar() {
           {/* Desktop — not logged in */}
           {!user && (
             <div className="hidden md:flex items-center gap-5">
+              <Link to="/demo" className="text-white/80 hover:text-white text-sm transition-colors">Try Demo</Link>
               <Link to="/pricing" className="text-white/80 hover:text-white text-sm transition-colors">Pricing</Link>
               <Link to="/about" className="text-white/80 hover:text-white text-sm transition-colors">About</Link>
 
@@ -122,6 +123,7 @@ export default function Navbar() {
         <div className="md:hidden bg-[#0a1f42] px-4 pb-4 space-y-1">
           {!user && (
             <>
+              <Link to="/demo" className="block py-2.5 text-[#D4A017] text-sm border-b border-white/5 font-semibold" onClick={() => setMenuOpen(false)}>👀 Try Demo</Link>
               <Link to="/pricing" className="block py-2.5 text-white/80 text-sm border-b border-white/5" onClick={() => setMenuOpen(false)}>Pricing</Link>
               <Link to="/about" className="block py-2.5 text-white/80 text-sm border-b border-white/5" onClick={() => setMenuOpen(false)}>About</Link>
               <div className="py-2 border-b border-white/5">

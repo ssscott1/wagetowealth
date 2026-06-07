@@ -176,3 +176,32 @@ INSERT INTO modules (id, title, slug, category, is_published, sort_order) VALUES
 (16, 'Knowing Your Workplace Entitlements', 'workplace-entitlements', 'Workplace', TRUE, 16),
 (17, 'Employee Share Schemes (ESS)', 'employee-share-schemes', 'Workplace', TRUE, 17),
 (18, 'Managing Money Through Life Events', 'life-events', 'Workplace', TRUE, 18);
+
+-- ============================================
+-- MIGRATION: Add missing columns + policies
+-- Run these in Supabase SQL Editor
+-- ============================================
+
+-- Add employee_count_estimate to employers (if not exists)
+ALTER TABLE employers ADD COLUMN IF NOT EXISTS employee_count_estimate TEXT;
+
+-- Add preferred_name to employees (if not exists)
+ALTER TABLE employees ADD COLUMN IF NOT EXISTS preferred_name TEXT;
+
+-- Add domain to employers (if not exists)
+ALTER TABLE employers ADD COLUMN IF NOT EXISTS domain TEXT;
+
+-- Update subscription_status check to include 'pending'
+ALTER TABLE employers DROP CONSTRAINT IF EXISTS employers_subscription_status_check;
+ALTER TABLE employers ADD CONSTRAINT employers_subscription_status_check
+  CHECK (subscription_status IN ('pending', 'trial', 'active', 'past_due', 'cancelled'));
+
+-- CRITICAL: Add INSERT policy on employers table (was missing — caused "account not linked")
+CREATE POLICY IF NOT EXISTS "service_role_insert_employer" ON employers
+  FOR INSERT WITH CHECK (true);
+
+-- Allow employer admins to update their own employer (for logo, name etc.)
+CREATE POLICY IF NOT EXISTS "employer_admin_update_own_employer" ON employers
+  FOR UPDATE USING (
+    id IN (SELECT employer_id FROM employer_admins WHERE user_id = auth.uid())
+  );
