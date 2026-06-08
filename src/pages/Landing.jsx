@@ -11,9 +11,9 @@ const features = [
 ]
 
 const PLANS = [
-  { name: 'Starter', price: '$299', period: '/month', employees: 'Up to 50 employees', features: ['All 10 modules', 'All calculators', 'Quiz engine', 'Aggregate analytics', 'Email support'], cta: 'Start Free Trial' },
-  { name: 'Growth', price: '$599', period: '/month', employees: 'Up to 200 employees', features: ['Everything in Starter', 'White-label branding', 'Anonymous leaderboard', 'Hardship tracker', 'Priority support'], cta: 'Start Free Trial', popular: true },
-  { name: 'Enterprise', price: 'Custom', period: '', employees: 'Unlimited employees', features: ['Everything in Growth', 'Custom content modules', 'SSO / SAML', 'Dedicated success manager', 'SLA guarantee'], cta: 'Contact Sales' },
+  { name: 'Micro', price: '$149', period: '/mo + GST', employees: 'Up to 20 employees', features: ['All 18 modules', 'All 17 calculators', 'Quiz engine + Literacy Score', 'Employee & employer dashboards', 'Email support'], cta: 'Start Free Trial', id: 'micro' },
+  { name: 'Starter', price: '$299', period: '/mo + GST', employees: 'Up to 200 employees', features: ['Everything in Micro', 'Custom employer branding', 'Shareable invite link', 'Standard analytics', 'Email + chat support'], cta: 'Start Free Trial', popular: true, id: 'starter' },
+  { name: 'Growth', price: '$599', period: '/mo + GST', employees: 'Up to 500 employees', features: ['Everything in Starter', 'Advanced analytics + CSV export', 'Department-level reporting', 'Priority support', 'Quarterly review call'], cta: 'Get Started', id: 'growth' },
 ]
 
 export default function Landing() {
@@ -44,7 +44,7 @@ export default function Landing() {
               Set Up My Team →
             </Link>
           </div>
-          <p className="text-white/40 text-sm mt-4">See exactly what your employees experience · Plans from $299/month</p>
+          <p className="text-white/40 text-sm mt-4">See exactly what your employees experience · Plans from $149/month + GST</p>
         </div>
       </section>
 
@@ -227,8 +227,8 @@ export default function Landing() {
                     </li>
                   ))}
                 </ul>
-                <Link to="/register/employer"
-                  className={`block text-center py-2.5 rounded-xl font-semibold text-sm transition-colors ${plan.popular ? 'bg-[#0F2B5B] text-white hover:bg-[#1a3d7c]' : 'border border-[#0F2B5B] text-[#0F2B5B] hover:bg-blue-50'}`}>
+                <Link to={`/register/employer?plan=${plan.id}`}
+                  className={`block text-center py-2.5 rounded-xl font-semibold text-sm transition-colors ${plan.popular ? 'bg-[#D4A017] text-[#0F2B5B] hover:bg-yellow-400' : 'border border-[#0F2B5B] text-[#0F2B5B] hover:bg-blue-50'}`}>
                   {plan.cta}
                 </Link>
               </div>

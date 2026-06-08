@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 
 const FREE_DOMAINS = new Set([
   'gmail.com','googlemail.com','yahoo.com','yahoo.com.au','hotmail.com','hotmail.com.au',
@@ -20,35 +20,49 @@ function domainToCompanyName(domain) {
 
 const PLANS = [
   {
-    id: 'starter',
-    name: 'Starter',
-    price: '$299',
-    period: '/month',
+    id: 'micro',
+    name: 'Micro',
+    price: '$149',
+    period: '/mo + GST',
     tag: null,
-    employees: 'Up to 50 employees',
+    employees: 'Up to 20 employees',
     features: [
       'All 18 learning modules',
       '17 live calculators',
-      'Gamified quiz engine',
-      'Financial Literacy Scores',
-      'Aggregate team analytics',
+      'Gamified quiz engine + Literacy Score',
+      'Employee & employer dashboards',
+      'Basic engagement reporting',
       'Email support',
+    ],
+  },
+  {
+    id: 'starter',
+    name: 'Starter',
+    price: '$299',
+    period: '/mo + GST',
+    tag: 'Most Popular',
+    employees: 'Up to 200 employees',
+    features: [
+      'Everything in Micro',
+      'Custom employer branding',
+      'Shareable employee invite link',
+      'Standard analytics + leaderboard',
+      'Email + chat support',
     ],
   },
   {
     id: 'growth',
     name: 'Growth',
     price: '$599',
-    period: '/month',
-    tag: 'Most Popular',
-    employees: 'Up to 200 employees',
+    period: '/mo + GST',
+    tag: null,
+    employees: 'Up to 500 employees',
     features: [
       'Everything in Starter',
-      'White-label branding',
-      'Hardship referral tracker',
+      'Advanced analytics + CSV export',
+      'Department-level reporting',
       'Priority support',
-      'Onboarding call included',
-      'Quarterly usage reports',
+      'Quarterly review call',
     ],
   },
   {
@@ -57,14 +71,13 @@ const PLANS = [
     price: 'Custom',
     period: '',
     tag: null,
-    employees: 'Unlimited employees',
+    employees: '501+ employees',
     features: [
       'Everything in Growth',
-      'Custom content modules',
-      'SSO / SAML',
-      'Dedicated success manager',
-      'SLA guarantee',
-      'Custom invoicing',
+      'Dedicated account manager',
+      'ASIC compliance documentation',
+      'Government tender support',
+      'SSO / payroll integration (add-on)',
     ],
   },
 ]
@@ -74,13 +87,15 @@ const EMPLOYEE_SIZES = [
 ]
 
 export default function RegisterEmployer() {
+  const [params] = useSearchParams()
+  const initialPlan = PLANS.find(p => p.id === params.get('plan'))?.id || 'starter'
   const [step, setStep] = useState(1)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [companyName, setCompanyName] = useState('')
   const [employeeCount, setEmployeeCount] = useState('')
-  const [selectedPlan, setSelectedPlan] = useState('growth')
+  const [selectedPlan, setSelectedPlan] = useState(initialPlan)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
