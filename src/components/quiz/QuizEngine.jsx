@@ -1,10 +1,14 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { supabase } from '../../lib/supabase'
 import { useAuth } from '../../hooks/useAuth'
+import { calcLiteracyScore } from '../../lib/literacy'
+
+const PASS_THRESHOLD = 60
 
 export default function QuizEngine({ questions, moduleId, onComplete }) {
-  const { profile } = useAuth()
+  const { profile, fetchProfile, user } = useAuth()
+  const navigate = useNavigate()
   const [current, setCurrent] = useState(0)
   const [selected, setSelected] = useState(null)
   const [answers, setAnswers] = useState([])
@@ -47,54 +51,69 @@ export default function QuizEngine({ questions, moduleId, onComplete }) {
       score: pct,
       answers_json: ans,
     })
-    // Update literacy score (simple average)
+    // Recompute literacy score from best-per-module across all 18 modules
     const { data: attempts } = await supabase
       .from('quiz_attempts')
       .select('score, module_id')
       .eq('employee_id', profile.id)
     if (attempts?.length) {
-      const uniqueModules = [...new Map(attempts.map(a => [a.module_id, a])).values()]
-      const avg = Math.round(uniqueModules.reduce((s, a) => s + a.score, 0) / uniqueModules.length)
-      await supabase.from('employees').update({ literacy_score: avg }).eq('id', profile.id)
+      const literacy = calcLiteracyScore(attempts)
+      await supabase.from('employees').update({ literacy_score: literacy }).eq('id', profile.id)
+      // Refresh the cached profile so the dashboard shows the new score immediately
+      if (user) fetchProfile(user)
     }
     onComplete?.(pct)
   }
 
   if (completed) {
+    const passed = score >= PASS_THRESHOLD
     const tier =
       score >= 90 ? { label: 'Expert', color: 'text-[#0F2B5B]', bg: 'bg-blue-50' } :
       score >= 80 ? { label: 'Confident', color: 'text-green-700', bg: 'bg-green-50' } :
       score >= 60 ? { label: 'Capable', color: 'text-yellow-700', bg: 'bg-yellow-50' } :
       score >= 40 ? { label: 'Building', color: 'text-orange-700', bg: 'bg-orange-50' } :
       { label: 'Beginner', color: 'text-red-700', bg: 'bg-red-50' }
+    const correctCount = answers.filter((a, i) => a === questions[i].correct).length
 
     return (
       <div className={`rounded-xl p-8 text-center ${tier.bg} border border-current/10`}>
-        <div className="text-6xl mb-3">🎉</div>
-        <h3 className="text-2xl font-bold text-[#0F2B5B] mb-1" style={{ fontFamily: 'DM Sans' }}>Quiz Complete!</h3>
+        <div className="text-6xl mb-3">{passed ? '🎉' : '📚'}</div>
+        <h3 className="text-2xl font-bold text-[#0F2B5B] mb-1" style={{ fontFamily: 'DM Sans' }}>
+          {passed ? 'Module Complete!' : 'Almost there!'}
+        </h3>
         <div className={`text-5xl font-bold ${tier.color} my-4`}>{score}%</div>
         <div className={`inline-block px-4 py-1.5 rounded-full text-sm font-semibold ${tier.color} bg-white/70 mb-4`}>
           {tier.label}
         </div>
         <p className="text-gray-600 text-sm mb-6">
-          You answered {answers.filter((a, i) => a === questions[i].correct).length} of {questions.length} correctly.
+          You answered {correctCount} of {questions.length} correctly.
+          {!passed && ' Score at least 60% to complete this module.'}
         </p>
-        {score === 100 ? (
-          <Link to="/modules"
-            className="inline-block bg-[#D4A017] text-[#0F2B5B] px-6 py-2.5 rounded-lg text-sm font-bold hover:bg-yellow-400 transition-colors">
-            Back to Modules →
-          </Link>
+        {passed ? (
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <button
+              onClick={() => navigate('/dashboard')}
+              className="bg-[#D4A017] text-[#0F2B5B] px-6 py-2.5 rounded-lg text-sm font-bold hover:bg-yellow-400 transition-colors">
+              Back to Dashboard →
+            </button>
+            {score < 100 && (
+              <button
+                onClick={() => { setCurrent(0); setSelected(null); setAnswers([]); setShowFeedback(false); setCompleted(false); setScore(0) }}
+                className="border-2 border-[#0F2B5B] text-[#0F2B5B] px-6 py-2.5 rounded-lg text-sm font-semibold hover:bg-[#0F2B5B] hover:text-white transition-colors">
+                Retry for 100%
+              </button>
+            )}
+          </div>
         ) : (
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <button
               onClick={() => { setCurrent(0); setSelected(null); setAnswers([]); setShowFeedback(false); setCompleted(false); setScore(0) }}
-              className="bg-[#0F2B5B] text-white px-6 py-2.5 rounded-lg text-sm font-semibold hover:bg-[#1a3d7c] transition-colors"
-            >
+              className="bg-[#0F2B5B] text-white px-6 py-2.5 rounded-lg text-sm font-semibold hover:bg-[#1a3d7c] transition-colors">
               Retry Quiz
             </button>
-            <Link to="/modules"
+            <Link to="/dashboard"
               className="border-2 border-[#0F2B5B] text-[#0F2B5B] px-6 py-2.5 rounded-lg text-sm font-semibold hover:bg-[#0F2B5B] hover:text-white transition-colors">
-              Back to Modules
+              Back to Dashboard
             </Link>
           </div>
         )}

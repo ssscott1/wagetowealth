@@ -4,6 +4,10 @@ import { useAuth } from '../hooks/useAuth'
 import { supabase } from '../lib/supabase'
 import { MODULES } from '../data/modules'
 import LiteracyGauge from '../components/ui/LiteracyGauge'
+import CircularProgress from '../components/ui/CircularProgress'
+import { bestScoresByModule, TOTAL_MODULES, literacyTier } from '../lib/literacy'
+
+const PASS_THRESHOLD = 60
 
 const CALCULATORS = [
   { label: 'Budget', icon: '💰', slug: 'budget-planner' },
@@ -21,21 +25,41 @@ export default function EmployeeDashboard() {
   useEffect(() => {
     if (!profile?.id) return
     supabase.from('quiz_attempts')
-      .select('*')
+      .select('id, module_id, score, completed_at')
       .eq('employee_id', profile.id)
       .order('completed_at', { ascending: false })
-      .limit(5)
       .then(({ data }) => setAttempts(data || []))
   }, [profile?.id])
 
-  const completedModuleIds = [...new Set(attempts.map(a => a.module_id))]
   const firstName = profile?.preferred_name || user?.email?.split('@')[0] || 'there'
 
-  const tier =
-    literacyScore >= 90 ? 'Expert' :
-    literacyScore >= 80 ? 'Confident' :
-    literacyScore >= 60 ? 'Capable' :
-    literacyScore >= 40 ? 'Building' : 'Beginner'
+  // Best score per module → a module counts as "completed" at >= 60%
+  const bestByModule = bestScoresByModule(attempts)
+  const completedModuleIds = Object.entries(bestByModule)
+    .filter(([, score]) => score >= PASS_THRESHOLD)
+    .map(([id]) => Number(id))
+  const startedModuleIds = Object.keys(bestByModule).map(Number)
+  const completedCount = completedModuleIds.length
+  const progressPct = Math.round((completedCount / TOTAL_MODULES) * 100)
+
+  const tier = literacyTier(literacyScore)
+
+  // "Up Next" — first module not yet completed (prefer untouched, then in-progress)
+  const upNext =
+    MODULES.find(m => !startedModuleIds.includes(m.id)) ||
+    MODULES.find(m => !completedModuleIds.includes(m.id)) ||
+    null
+
+  const recentAttempts = attempts.slice(0, 5)
+
+  const ACHIEVEMENTS = [
+    { icon: '🌱', label: 'First Steps', desc: 'Complete your first module', earned: completedCount >= 1 },
+    { icon: '🔥', label: 'On a Roll', desc: 'Complete 5 modules', earned: completedCount >= 5 },
+    { icon: '⭐', label: 'Perfect Score', desc: 'Get 100% on any quiz', earned: attempts.some(a => a.score === 100) },
+    { icon: '🎓', label: 'Halfway Hero', desc: 'Complete 9 modules', earned: completedCount >= 9 },
+    { icon: '🏆', label: 'Master', desc: 'Complete all 18 modules', earned: completedCount >= TOTAL_MODULES },
+  ]
+  const earnedCount = ACHIEVEMENTS.filter(a => a.earned).length
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
@@ -45,39 +69,107 @@ export default function EmployeeDashboard() {
           <h1 className="text-2xl font-bold mb-1" style={{ fontFamily: 'DM Sans' }}>
             Welcome back, {firstName} 👋
           </h1>
-          <p className="text-white/70 text-sm">Continue your financial literacy journey</p>
+          <p className="text-white/70 text-sm">
+            {completedCount === 0
+              ? "Let's get started on your first module"
+              : completedCount === TOTAL_MODULES
+                ? "You've completed every module — incredible work! 🏆"
+                : `You've completed ${completedCount} of ${TOTAL_MODULES} modules. Keep it up!`}
+          </p>
         </div>
         <Link to="/get-help" className="bg-red-500 hover:bg-red-600 text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition-colors flex-shrink-0">
           🆘 Get Help
         </Link>
       </div>
 
+      {/* Top stat row */}
       <div className="grid md:grid-cols-3 gap-6 mb-6">
-        {/* Score gauge */}
+        {/* Literacy score */}
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 flex flex-col items-center">
           <h2 className="font-bold text-[#0F2B5B] text-sm uppercase tracking-wide mb-4">Financial Literacy Score</h2>
           <LiteracyGauge score={literacyScore} />
-          <div className="mt-3 text-center">
-            <span className="text-xs text-gray-400">{completedModuleIds.length} of {MODULES.length} modules completed</span>
-          </div>
+          <p className="mt-3 text-center text-xs text-gray-400 max-w-[14rem]">
+            Grows as you complete modules and improve your quiz scores across all {TOTAL_MODULES} topics.
+          </p>
         </div>
 
-        {/* Progress */}
-        <div className="md:col-span-2 bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-          <h2 className="font-bold text-[#0F2B5B] text-sm uppercase tracking-wide mb-4">Module Progress</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
-            {MODULES.map(m => {
-              const done = completedModuleIds.includes(m.id)
-              return (
-                <Link key={m.id} to={`/modules/${m.slug}`}
-                  className={`rounded-xl p-3 text-center transition-all hover:shadow-md ${done ? 'bg-green-50 border-2 border-green-300' : 'bg-gray-50 border-2 border-transparent hover:border-gray-200'}`}>
-                  <div className="text-2xl mb-1">{m.icon}</div>
-                  <div className="text-xs font-medium text-gray-600 leading-tight">{m.title}</div>
-                  {done && <div className="text-green-600 text-xs mt-1">✓ Done</div>}
-                </Link>
-              )
-            })}
-          </div>
+        {/* Modules completed progress ring */}
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 flex flex-col items-center justify-center">
+          <h2 className="font-bold text-[#0F2B5B] text-sm uppercase tracking-wide mb-4">Modules Completed</h2>
+          <CircularProgress value={completedCount} max={TOTAL_MODULES} size={130} stroke={11} color={tier.color}>
+            <span className="text-3xl font-bold text-[#0F2B5B]" style={{ fontFamily: 'DM Sans' }}>{completedCount}</span>
+            <span className="text-xs text-gray-400">of {TOTAL_MODULES}</span>
+          </CircularProgress>
+          <p className="mt-3 text-center text-xs font-semibold" style={{ color: tier.color }}>{progressPct}% complete</p>
+        </div>
+
+        {/* Up next */}
+        <div className="bg-gradient-to-br from-[#0F2B5B] to-[#1a3d7c] rounded-2xl shadow-sm p-6 flex flex-col text-white">
+          <h2 className="font-bold text-sm uppercase tracking-wide mb-3 text-white/70">
+            {completedCount === 0 ? 'Start Here' : 'Up Next'}
+          </h2>
+          {upNext ? (
+            <>
+              <div className="text-4xl mb-2">{upNext.icon}</div>
+              <div className="text-xs text-[#D4A017] font-semibold uppercase tracking-wide mb-0.5">{upNext.category}</div>
+              <h3 className="font-bold text-lg leading-tight mb-2" style={{ fontFamily: 'DM Sans' }}>{upNext.title}</h3>
+              <p className="text-white/60 text-xs mb-4 flex-1">{upNext.description}</p>
+              <Link to={`/modules/${upNext.slug}`}
+                className="bg-[#D4A017] text-[#0F2B5B] px-4 py-2.5 rounded-xl text-sm font-bold hover:bg-yellow-400 transition-colors text-center">
+                {startedModuleIds.includes(upNext.id) ? 'Continue →' : 'Start Module →'}
+              </Link>
+            </>
+          ) : (
+            <div className="flex-1 flex flex-col items-center justify-center text-center">
+              <div className="text-4xl mb-2">🏆</div>
+              <p className="text-sm text-white/80 font-semibold">All modules complete!</p>
+              <p className="text-white/50 text-xs mt-1">Revisit any module to keep your knowledge sharp.</p>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Achievements */}
+      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 mb-6">
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="font-bold text-[#0F2B5B] text-sm uppercase tracking-wide">Achievements</h2>
+          <span className="text-xs text-gray-400 font-semibold">{earnedCount} / {ACHIEVEMENTS.length} unlocked</span>
+        </div>
+        <div className="grid grid-cols-5 gap-2">
+          {ACHIEVEMENTS.map(a => (
+            <div key={a.label}
+              title={a.desc}
+              className={`rounded-xl p-3 text-center transition-all ${a.earned ? 'bg-yellow-50 border-2 border-[#D4A017]/40' : 'bg-gray-50 border-2 border-transparent opacity-50'}`}>
+              <div className={`text-2xl mb-1 ${a.earned ? '' : 'grayscale'}`}>{a.icon}</div>
+              <div className="text-xs font-semibold text-gray-600 leading-tight">{a.label}</div>
+              <div className="text-[10px] text-gray-400 mt-0.5 leading-tight hidden sm:block">{a.desc}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Module progress grid */}
+      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 mb-6">
+        <h2 className="font-bold text-[#0F2B5B] text-sm uppercase tracking-wide mb-4">All Modules</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
+          {MODULES.map(m => {
+            const best = bestByModule[m.id]
+            const done = best >= PASS_THRESHOLD
+            const inProgress = best !== undefined && best < PASS_THRESHOLD
+            return (
+              <Link key={m.id} to={`/modules/${m.slug}`}
+                className={`relative rounded-xl p-3 text-center transition-all hover:shadow-md ${
+                  done ? 'bg-green-50 border-2 border-green-300'
+                    : inProgress ? 'bg-orange-50 border-2 border-orange-200'
+                    : 'bg-gray-50 border-2 border-transparent hover:border-gray-200'
+                }`}>
+                <div className="text-2xl mb-1">{m.icon}</div>
+                <div className="text-xs font-medium text-gray-600 leading-tight">{m.title}</div>
+                {done && <div className="text-green-600 text-xs mt-1 font-semibold">✓ {best}%</div>}
+                {inProgress && <div className="text-orange-500 text-xs mt-1 font-semibold">{best}% · retry</div>}
+              </Link>
+            )
+          })}
         </div>
       </div>
 
@@ -109,11 +201,11 @@ export default function EmployeeDashboard() {
       </div>
 
       {/* Recent quiz results */}
-      {attempts.length > 0 && (
+      {recentAttempts.length > 0 && (
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
           <h2 className="font-bold text-[#0F2B5B] text-sm uppercase tracking-wide mb-3">Recent Quiz Results</h2>
           <div className="space-y-2">
-            {attempts.map(a => {
+            {recentAttempts.map(a => {
               const mod = MODULES.find(m => m.id === a.module_id)
               const color = a.score >= 80 ? 'text-green-600' : a.score >= 60 ? 'text-yellow-600' : 'text-red-600'
               return (
@@ -121,6 +213,11 @@ export default function EmployeeDashboard() {
                   <div className="flex items-center gap-2">
                     <span>{mod?.icon || '📝'}</span>
                     <span className="text-sm font-medium">{mod?.title || 'Unknown Module'}</span>
+                    {a.completed_at && (
+                      <span className="text-xs text-gray-400 hidden sm:inline">
+                        · {new Date(a.completed_at).toLocaleDateString('en-AU')}
+                      </span>
+                    )}
                   </div>
                   <div className={`font-bold text-sm ${color}`}>{a.score}%</div>
                 </div>
