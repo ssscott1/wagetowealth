@@ -12,9 +12,9 @@ export default function Privacy() {
         <h2 className="text-lg font-bold text-[#0F2B5B] mt-6">Data Security</h2>
         <p>All data is stored in Supabase (hosted in Australia) with row-level security enforced at the database level. All connections are encrypted via TLS. We do not sell your data to third parties.</p>
         <h2 className="text-lg font-bold text-[#0F2B5B] mt-6">Your Rights</h2>
-        <p>You have the right to access, correct, or request deletion of your personal information. Contact us at privacy@wagetowealth.com.au.</p>
+        <p>You have the right to access, correct, or request deletion of your personal information. Contact us at privacy@wagestowealth.com.au.</p>
         <h2 className="text-lg font-bold text-[#0F2B5B] mt-6">Contact</h2>
-        <p>For privacy inquiries: privacy@wagetowealth.com.au</p>
+        <p>For privacy inquiries: privacy@wagestowealth.com.au</p>
       </div>
     </div>
   )

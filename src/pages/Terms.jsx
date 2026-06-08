@@ -18,7 +18,7 @@ export default function Terms() {
         <h2 className="text-lg font-bold text-[#0F2B5B] mt-6">Governing Law</h2>
         <p>These terms are governed by the laws of New South Wales, Australia.</p>
         <h2 className="text-lg font-bold text-[#0F2B5B] mt-6">Contact</h2>
-        <p>For enquiries: hello@wagetowealth.com.au</p>
+        <p>For enquiries: hello@wagestowealth.com.au</p>
       </div>
     </div>
   )

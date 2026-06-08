@@ -27,7 +27,7 @@ export default function Footer() {
             <ul className="space-y-1.5 text-white/60 text-sm">
               <li><Link to="/about" className="hover:text-white transition-colors">About</Link></li>
               <li><Link to="/pricing" className="hover:text-white transition-colors">Pricing</Link></li>
-              <li><a href="mailto:hello@wagetowealth.com.au" className="hover:text-white transition-colors">Contact</a></li>
+              <li><a href="mailto:hello@wagestowealth.com.au" className="hover:text-white transition-colors">Contact</a></li>
             </ul>
           </div>
           <div>
