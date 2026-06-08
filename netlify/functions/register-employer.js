@@ -1,16 +1,6 @@
 const { createClient } = require('@supabase/supabase-js')
-const Stripe = require('stripe')
-
-const supabaseAdmin = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY
-)
 
 exports.handler = async (event) => {
-  if (event.httpMethod !== 'POST') {
-    return { statusCode: 405, body: 'Method Not Allowed' }
-  }
-
   const headers = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Headers': 'Content-Type',
@@ -19,6 +9,16 @@ exports.handler = async (event) => {
 
   if (event.httpMethod === 'OPTIONS') {
     return { statusCode: 200, headers, body: '' }
+  }
+
+  if (event.httpMethod !== 'POST') {
+    return { statusCode: 405, headers, body: JSON.stringify({ error: 'Method Not Allowed' }) }
+  }
+
+  // Validate required env vars up front so we get a clear error
+  if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
+    console.error('Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY')
+    return { statusCode: 500, headers, body: JSON.stringify({ error: 'Server configuration error. Please contact support.' }) }
   }
 
   let body
@@ -34,20 +34,25 @@ exports.handler = async (event) => {
     return { statusCode: 400, headers, body: JSON.stringify({ error: 'Missing required fields' }) }
   }
 
+  const supabaseAdmin = createClient(
+    process.env.SUPABASE_URL,
+    process.env.SUPABASE_SERVICE_ROLE_KEY
+  )
+
   try {
-    // 1. Create Supabase auth user (service role bypasses email confirmation)
+    // 1. Create Supabase auth user
     const { data: authData, error: authError } = await supabaseAdmin.auth.admin.createUser({
       email,
       password,
-      email_confirm: true, // auto-confirm so they can log in immediately
+      email_confirm: true,
       user_metadata: { user_type: 'employer' },
     })
 
     if (authError) {
-      // Handle duplicate user gracefully
-      if (authError.message.includes('already been registered')) {
+      if (authError.message.includes('already been registered') || authError.message.includes('already exists')) {
         return { statusCode: 409, headers, body: JSON.stringify({ error: 'An account with this email already exists. Please sign in.' }) }
       }
+      console.error('Auth error:', authError)
       throw authError
     }
 
@@ -67,19 +72,24 @@ exports.handler = async (event) => {
       .select()
       .single()
 
-    if (empError) throw empError
+    if (empError) {
+      console.error('Employer insert error:', empError)
+      throw empError
+    }
 
     // 3. Create employer_admin row
     const { error: adminError } = await supabaseAdmin
       .from('employer_admins')
       .insert({ employer_id: employer.id, user_id: userId, email })
 
-    if (adminError) throw adminError
+    if (adminError) {
+      console.error('Employer admin insert error:', adminError)
+      throw adminError
+    }
 
-    // 4. Create Stripe Checkout session (if Stripe is configured)
-    if (process.env.STRIPE_SECRET_KEY) {
-      const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
-
+    // 4. Create Stripe Checkout session
+    const stripeKey = process.env.STRIPE_SECRET_KEY
+    if (stripeKey) {
       const priceMap = {
         micro: process.env.STRIPE_PRICE_MICRO,
         starter: process.env.STRIPE_PRICE_STARTER,
@@ -87,25 +97,39 @@ exports.handler = async (event) => {
       }
       const priceId = priceMap[plan]
 
-      if (priceId) {
-        const siteUrl = process.env.SITE_URL || 'https://www.wagestowealth.com.au'
-        const session = await stripe.checkout.sessions.create({
-          mode: 'subscription',
-          payment_method_types: ['card'],
-          line_items: [{ price: priceId, quantity: 1 }],
-          customer_email: email,
-          metadata: {
-            employer_id: employer.id,
-            user_id: userId,
-          },
-          success_url: `${siteUrl}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
-          cancel_url: `${siteUrl}/register/employer?cancelled=1`,
-          subscription_data: {
-            metadata: { employer_id: employer.id },
-          },
-        })
+      if (!priceId) {
+        console.error(`No price ID found for plan: ${plan}. Available: MICRO=${process.env.STRIPE_PRICE_MICRO}, STARTER=${process.env.STRIPE_PRICE_STARTER}, GROWTH=${process.env.STRIPE_PRICE_GROWTH}`)
+      }
 
-        // Store Stripe customer data
+      if (priceId) {
+        let stripe
+        try {
+          const StripeLib = require('stripe')
+          stripe = new StripeLib(stripeKey)
+        } catch (stripeInitErr) {
+          console.error('Stripe init error:', stripeInitErr)
+          throw new Error('Payment system initialisation failed.')
+        }
+
+        const siteUrl = process.env.SITE_URL || 'https://www.wagestowealth.com.au'
+
+        let session
+        try {
+          session = await stripe.checkout.sessions.create({
+            mode: 'subscription',
+            payment_method_types: ['card'],
+            line_items: [{ price: priceId, quantity: 1 }],
+            customer_email: email,
+            metadata: { employer_id: employer.id, user_id: userId },
+            success_url: `${siteUrl}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
+            cancel_url: `${siteUrl}/register/employer?cancelled=1`,
+            subscription_data: { metadata: { employer_id: employer.id } },
+          })
+        } catch (stripeErr) {
+          console.error('Stripe checkout session error:', stripeErr.message, stripeErr.type)
+          throw new Error(`Payment setup failed: ${stripeErr.message}`)
+        }
+
         await supabaseAdmin
           .from('employers')
           .update({ stripe_customer_id: session.customer })
@@ -119,7 +143,7 @@ exports.handler = async (event) => {
       }
     }
 
-    // No Stripe configured — activate immediately (dev/enterprise mode)
+    // No Stripe key or no matching price — activate immediately
     await supabaseAdmin
       .from('employers')
       .update({ subscription_status: 'active' })
@@ -131,7 +155,7 @@ exports.handler = async (event) => {
       body: JSON.stringify({ checkoutUrl: null, employerId: employer.id }),
     }
   } catch (err) {
-    console.error('register-employer error:', err)
+    console.error('register-employer unhandled error:', err.message, err.stack)
     return {
       statusCode: 500,
       headers,
