@@ -307,25 +307,6 @@ export default function RegisterEmployer() {
                   <p className="text-xs text-gray-400 mt-1">Suggested from your domain — edit if needed</p>
                 </div>
 
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">Estimated Team Size</label>
-                  <div className="grid grid-cols-5 gap-2">
-                    {EMPLOYEE_SIZES.map(size => (
-                      <button
-                        key={size} type="button"
-                        onClick={() => setEmployeeCount(size)}
-                        className={`py-2 rounded-xl text-xs font-semibold border-2 transition-all ${
-                          employeeCount === size
-                            ? 'border-[#0F2B5B] bg-[#0F2B5B] text-white'
-                            : 'border-gray-200 text-gray-500 hover:border-gray-300'
-                        }`}
-                      >
-                        {size}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
                 {error && (
                   <div className="bg-red-50 border border-red-200 text-red-600 text-sm rounded-xl px-4 py-3">{error}</div>
                 )}
@@ -352,6 +333,26 @@ export default function RegisterEmployer() {
               <div className="inline-block bg-[#D4A017]/15 text-[#D4A017] font-bold text-xs px-3 py-1 rounded-full mb-3 uppercase tracking-wide">Step 3 of 3</div>
               <h1 className="text-2xl font-bold text-[#0F2B5B]" style={{ fontFamily: 'DM Sans' }}>Choose your plan</h1>
               <p className="text-gray-500 text-sm mt-1">All plans include full platform access. Cancel anytime. Billed monthly in AUD.</p>
+            </div>
+
+            {/* Team size selector */}
+            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 mb-6">
+              <label className="block text-sm font-semibold text-gray-700 mb-3">How many employees are in your team?</label>
+              <div className="grid grid-cols-5 gap-2">
+                {EMPLOYEE_SIZES.map(size => (
+                  <button
+                    key={size} type="button"
+                    onClick={() => setEmployeeCount(size)}
+                    className={`py-2.5 rounded-xl text-xs font-semibold border-2 transition-all ${
+                      employeeCount === size
+                        ? 'border-[#0F2B5B] bg-[#0F2B5B] text-white'
+                        : 'border-gray-200 text-gray-500 hover:border-gray-300'
+                    }`}
+                  >
+                    {size}
+                  </button>
+                ))}
+              </div>
             </div>
 
             <div className="grid md:grid-cols-3 gap-5 mb-6">
