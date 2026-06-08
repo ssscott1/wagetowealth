@@ -80,7 +80,7 @@ export default function Navbar() {
 
               <Link to="/register/employer"
                 className="bg-[#D4A017] text-[#0F2B5B] px-4 py-2 rounded-lg text-sm font-bold hover:bg-yellow-400 transition-colors">
-                Start Free Trial
+                Get Started
               </Link>
             </div>
           )}
@@ -135,7 +135,7 @@ export default function Navbar() {
                   👤 <span>Employee Login</span>
                 </Link>
               </div>
-              <Link to="/register/employer" className="block py-2.5 text-[#D4A017] text-sm font-bold" onClick={() => setMenuOpen(false)}>Start Free Trial →</Link>
+              <Link to="/register/employer" className="block py-2.5 text-[#D4A017] text-sm font-bold" onClick={() => setMenuOpen(false)}>Get Started →</Link>
             </>
           )}
           {user && (
