@@ -23,7 +23,7 @@ const PLANS = [
     id: 'micro',
     name: 'Micro',
     price: '$149',
-    period: '/mo + GST',
+    period: '/mo incl. GST',
     tag: null,
     employees: 'Up to 20 employees',
     features: [
@@ -39,7 +39,7 @@ const PLANS = [
     id: 'starter',
     name: 'Starter',
     price: '$299',
-    period: '/mo + GST',
+    period: '/mo incl. GST',
     tag: 'Most Popular',
     employees: 'Up to 200 employees',
     features: [
@@ -54,7 +54,7 @@ const PLANS = [
     id: 'growth',
     name: 'Growth',
     price: '$599',
-    period: '/mo + GST',
+    period: '/mo incl. GST',
     tag: null,
     employees: 'Up to 500 employees',
     features: [
@@ -63,21 +63,6 @@ const PLANS = [
       'Department-level reporting',
       'Priority support',
       'Quarterly review call',
-    ],
-  },
-  {
-    id: 'enterprise',
-    name: 'Enterprise',
-    price: 'Custom',
-    period: '',
-    tag: null,
-    employees: '501+ employees',
-    features: [
-      'Everything in Growth',
-      'Dedicated account manager',
-      'ASIC compliance documentation',
-      'Government tender support',
-      'SSO / payroll integration (add-on)',
     ],
   },
 ]
@@ -127,12 +112,6 @@ export default function RegisterEmployer() {
     e.preventDefault()
     setError('')
     setLoading(true)
-
-    if (selectedPlan === 'enterprise') {
-      window.location.href = 'mailto:hello@wagestowealth.com.au?subject=Enterprise Enquiry'
-      setLoading(false)
-      return
-    }
 
     try {
       const res = await fetch('/api/register-employer', {
@@ -428,18 +407,28 @@ export default function RegisterEmployer() {
                   type="submit"
                   disabled={loading}
                   className="bg-[#D4A017] text-[#0F2B5B] px-8 py-3.5 rounded-xl font-bold hover:bg-yellow-400 transition-colors disabled:opacity-50 whitespace-nowrap text-sm">
-                  {loading ? 'Setting up account…' :
-                   selectedPlan === 'enterprise' ? 'Contact Sales →' :
-                   '🔒 Subscribe & Activate →'}
+                  {loading ? 'Setting up account…' : '🔒 Subscribe & Activate →'}
                 </button>
               </form>
             </div>
 
-            {selectedPlan !== 'enterprise' && (
-              <p className="text-center text-xs text-gray-400">
-                You'll be redirected to Stripe's secure payment page. Your account is created instantly after payment.
-              </p>
-            )}
+            <p className="text-center text-xs text-gray-400">
+              You'll be redirected to Stripe's secure payment page. Your account is created instantly after payment.
+            </p>
+
+            {/* Enterprise / 500+ callout */}
+            <div className="mt-5 bg-[#0F2B5B]/5 border border-[#0F2B5B]/15 rounded-2xl p-5 flex flex-col sm:flex-row items-center justify-between gap-3">
+              <div>
+                <p className="text-sm font-bold text-[#0F2B5B]">Have more than 500 employees?</p>
+                <p className="text-xs text-gray-500 mt-0.5">Custom pricing, volume discounts, dedicated support & government tender documentation.</p>
+              </div>
+              <a
+                href="mailto:hello@wagestowealth.com.au?subject=Enterprise%20Enquiry"
+                className="flex-shrink-0 border-2 border-[#0F2B5B] text-[#0F2B5B] px-5 py-2.5 rounded-xl font-bold text-sm hover:bg-[#0F2B5B] hover:text-white transition-colors whitespace-nowrap"
+              >
+                Contact Sales →
+              </a>
+            </div>
 
             {error && (
               <div className="bg-red-50 border border-red-200 text-red-600 text-sm rounded-xl px-4 py-3 mt-4 flex items-start gap-2">

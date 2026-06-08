@@ -321,11 +321,11 @@ export default function Pricing() {
                       <span className="text-4xl font-black text-[#0F2B5B]" style={{ fontFamily: 'DM Sans' }}>
                         ${annual ? plan.annualMonthly : plan.monthlyPrice}
                       </span>
-                      <span className="text-gray-400 text-sm mb-1">/mo + GST</span>
+                      <span className="text-gray-400 text-sm mb-1">/mo incl. GST</span>
                     </div>
                     {annual ? (
                       <div className="space-y-0.5">
-                        <p className="text-xs text-gray-400">Billed as ${plan.annualTotal?.toLocaleString()}/yr + GST</p>
+                        <p className="text-xs text-gray-400">Billed as ${plan.annualTotal?.toLocaleString()}/yr incl. GST</p>
                         <span className="inline-block text-[11px] bg-green-100 text-green-700 font-bold px-2 py-0.5 rounded-full">
                           Save ${plan.annualSaving?.toLocaleString()}/yr
                         </span>
@@ -338,7 +338,7 @@ export default function Pricing() {
                   <div className="mb-1">
                     <div className="text-2xl font-bold text-[#0F2B5B] mb-1" style={{ fontFamily: 'DM Sans' }}>Custom pricing</div>
                     <p className="text-xs text-gray-500 leading-relaxed">
-                      From $999/mo + GST for 501–2,000 employees.<br />
+                      From $999/mo incl. GST for 501–2,000 employees.<br />
                       Larger organisations — contact us for a quote.
                     </p>
                   </div>
