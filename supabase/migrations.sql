@@ -205,3 +205,28 @@ CREATE POLICY IF NOT EXISTS "employer_admin_update_own_employer" ON employers
   FOR UPDATE USING (
     id IN (SELECT employer_id FROM employer_admins WHERE user_id = auth.uid())
   );
+
+-- ============================================
+-- FIX: Employer admin cannot see quiz_attempts
+-- Root cause: no SELECT policy for employer_admin role on quiz_attempts
+-- Run this in Supabase SQL Editor
+-- ============================================
+
+CREATE POLICY "employer_admin_read_quiz_attempts" ON quiz_attempts
+  FOR SELECT USING (
+    employee_id IN (
+      SELECT e.id FROM employees e
+      JOIN employer_admins ea ON ea.employer_id = e.employer_id
+      WHERE ea.user_id = auth.uid()
+    )
+  );
+
+-- Also add read policy for calculator_events (same issue — employers can't see usage)
+CREATE POLICY "employer_admin_read_calc_events" ON calculator_events
+  FOR SELECT USING (
+    employee_id IN (
+      SELECT e.id FROM employees e
+      JOIN employer_admins ea ON ea.employer_id = e.employer_id
+      WHERE ea.user_id = auth.uid()
+    )
+  );
