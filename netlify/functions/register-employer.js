@@ -77,14 +77,18 @@ exports.handler = async (event) => {
     if (adminError) throw adminError
 
     // 4. Create Stripe Checkout session (if Stripe is configured)
-    if (process.env.STRIPE_SECRET_KEY && plan !== 'enterprise') {
+    if (process.env.STRIPE_SECRET_KEY) {
       const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
-      const priceId = plan === 'starter'
-        ? process.env.STRIPE_PRICE_STARTER
-        : process.env.STRIPE_PRICE_GROWTH
+      const priceMap = {
+        micro: process.env.STRIPE_PRICE_MICRO,
+        starter: process.env.STRIPE_PRICE_STARTER,
+        growth: process.env.STRIPE_PRICE_GROWTH,
+      }
+      const priceId = priceMap[plan]
 
       if (priceId) {
+        const siteUrl = process.env.SITE_URL || 'https://www.wagestowealth.com.au'
         const session = await stripe.checkout.sessions.create({
           mode: 'subscription',
           payment_method_types: ['card'],
@@ -94,8 +98,8 @@ exports.handler = async (event) => {
             employer_id: employer.id,
             user_id: userId,
           },
-          success_url: `${process.env.URL || 'https://wagestowealth.netlify.app'}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
-          cancel_url: `${process.env.URL || 'https://wagestowealth.netlify.app'}/register/employer?cancelled=1`,
+          success_url: `${siteUrl}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
+          cancel_url: `${siteUrl}/register/employer?cancelled=1`,
           subscription_data: {
             metadata: { employer_id: employer.id },
           },
