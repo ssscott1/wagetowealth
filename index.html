@@ -1,24 +1,30 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-AU">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Performance hints -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <!-- Primary meta -->
     <title>Wages to Wealth — Employee Financial Wellbeing Benefit for Australian Employers</title>
     <meta name="description" content="Wages to Wealth is Australia's leading employee financial wellbeing benefit. Give your team ASIC-compliant financial education — 18 expert modules, 17 live calculators, and a personal Financial Literacy Score. Attract and retain talent with a benefit that genuinely changes lives." />
     <meta name="keywords" content="employee financial wellbeing, employee benefits Australia, financial literacy platform, workplace financial education, ASIC compliant, employee benefit program, salary packaging education, superannuation education, financial wellness benefit, Australian employer benefits, staff financial wellbeing, employee value proposition" />
     <meta name="author" content="Sierra Bravo Capital Pty Ltd" />
-    <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://wagestowealth.netlify.app/" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+    <meta name="geo.region" content="AU" />
+    <meta name="geo.placename" content="Australia" />
+    <link rel="canonical" href="https://www.wagestowealth.com.au/" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://wagestowealth.netlify.app/" />
+    <meta property="og:url" content="https://www.wagestowealth.com.au/" />
     <meta property="og:title" content="Wages to Wealth — Employee Financial Wellbeing Benefit" />
-    <meta property="og:description" content="Australia's most comprehensive employee financial wellbeing benefit. Give your team 18 expert modules, 17 live calculators, and a personal Financial Literacy Score. ASIC-compliant. 30-day free trial." />
-    <meta property="og:image" content="https://wagestowealth.netlify.app/og-image.png" />
+    <meta property="og:description" content="Australia's most comprehensive employee financial wellbeing benefit. Give your team 18 expert modules, 17 live calculators, and a personal Financial Literacy Score. ASIC-compliant. Plans from $149/month incl. GST." />
+    <meta property="og:image" content="https://www.wagestowealth.com.au/og-image.png" />
     <meta property="og:site_name" content="Wages to Wealth" />
     <meta property="og:locale" content="en_AU" />
 
@@ -26,7 +32,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Wages to Wealth — Financial Literacy for Australian Employees" />
     <meta name="twitter:description" content="ASIC-compliant financial education platform for Australian employers. 18 modules, 17 calculators, gamified quizzes." />
-    <meta name="twitter:image" content="https://wagestowealth.netlify.app/og-image.png" />
+    <meta name="twitter:image" content="https://www.wagestowealth.com.au/og-image.png" />
 
     <!-- Theme -->
     <meta name="theme-color" content="#0F2B5B" />
@@ -38,8 +44,8 @@
       "@type": "Organization",
       "name": "Wages to Wealth",
       "legalName": "Sierra Bravo Capital Pty Ltd",
-      "url": "https://wagestowealth.netlify.app",
-      "logo": "https://wagestowealth.netlify.app/favicon.svg",
+      "url": "https://www.wagestowealth.com.au",
+      "logo": "https://www.wagestowealth.com.au/favicon.svg",
       "description": "ASIC-compliant financial literacy platform for Australian employers and their workforces.",
       "foundingDate": "2026",
       "areaServed": "AU",
@@ -53,27 +59,58 @@
     }
     </script>
 
+    <!-- Structured data: WebSite -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Wages to Wealth",
+      "url": "https://www.wagestowealth.com.au",
+      "inLanguage": "en-AU",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Wages to Wealth"
+      }
+    }
+    </script>
+
     <!-- Structured data: SoftwareApplication -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "Wages to Wealth",
-      "applicationCategory": "EducationalApplication",
+      "applicationCategory": "BusinessApplication",
       "operatingSystem": "Web",
-      "url": "https://wagestowealth.netlify.app",
+      "url": "https://www.wagestowealth.com.au",
       "description": "A white-label financial literacy platform Australian employers provide to their workforce. Covers budgeting, superannuation, property, investing, salary packaging, novated leasing, tax, and workplace entitlements.",
       "offers": [
+        {
+          "@type": "Offer",
+          "name": "Micro",
+          "price": "149",
+          "priceCurrency": "AUD",
+          "description": "Up to 20 employees. Price includes GST.",
+          "priceSpecification": {
+            "@type": "UnitPriceSpecification",
+            "price": "149",
+            "priceCurrency": "AUD",
+            "unitText": "MONTH",
+            "valueAddedTaxIncluded": true
+          }
+        },
         {
           "@type": "Offer",
           "name": "Starter",
           "price": "299",
           "priceCurrency": "AUD",
+          "description": "Up to 200 employees. Price includes GST.",
           "priceSpecification": {
             "@type": "UnitPriceSpecification",
             "price": "299",
             "priceCurrency": "AUD",
-            "unitText": "MONTH"
+            "unitText": "MONTH",
+            "valueAddedTaxIncluded": true
           }
         },
         {
@@ -81,11 +118,13 @@
           "name": "Growth",
           "price": "599",
           "priceCurrency": "AUD",
+          "description": "Up to 500 employees. Price includes GST.",
           "priceSpecification": {
             "@type": "UnitPriceSpecification",
             "price": "599",
             "priceCurrency": "AUD",
-            "unitText": "MONTH"
+            "unitText": "MONTH",
+            "valueAddedTaxIncluded": true
           }
         }
       ],
@@ -143,10 +182,10 @@
         },
         {
           "@type": "Question",
-          "name": "Is there a free trial?",
+          "name": "How much does Wages to Wealth cost?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes. Employers can start a 30-day free trial with no credit card required. The Starter plan covers up to 50 employees at $299/month."
+            "text": "Wages to Wealth is priced per employer, not per employee. Plans are Micro at $149/month (up to 20 employees), Starter at $299/month (up to 200 employees), and Growth at $599/month (up to 500 employees). All prices include GST. Organisations with more than 500 employees can contact us for Enterprise pricing."
           }
         }
       ]

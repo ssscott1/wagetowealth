@@ -1,92 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://wagestowealth.netlify.app/</loc>
+    <loc>https://www.wagestowealth.com.au/</loc>
+    <lastmod>2026-06-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://wagestowealth.netlify.app/pricing</loc>
+    <loc>https://www.wagestowealth.com.au/demo</loc>
+    <lastmod>2026-06-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://wagestowealth.netlify.app/about</loc>
+    <loc>https://www.wagestowealth.com.au/pricing</loc>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.wagestowealth.com.au/about</loc>
+    <lastmod>2026-06-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://wagestowealth.netlify.app/login</loc>
+    <loc>https://www.wagestowealth.com.au/contact</loc>
+    <lastmod>2026-06-08</lastmod>
     <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
+    <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://wagestowealth.netlify.app/register/employer</loc>
+    <loc>https://www.wagestowealth.com.au/register/employer</loc>
+    <lastmod>2026-06-08</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://wagestowealth.netlify.app/get-help</loc>
+    <loc>https://www.wagestowealth.com.au/login</loc>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.wagestowealth.com.au/get-help</loc>
+    <lastmod>2026-06-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://wagestowealth.netlify.app/kids</loc>
+    <loc>https://www.wagestowealth.com.au/kids</loc>
+    <lastmod>2026-06-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://wagestowealth.netlify.app/kids/modules</loc>
+    <loc>https://www.wagestowealth.com.au/kids/modules</loc>
+    <lastmod>2026-06-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://wagestowealth.netlify.app/kids/modules/what-is-money</loc>
+    <loc>https://www.wagestowealth.com.au/kids/modules/what-is-money</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://wagestowealth.netlify.app/kids/modules/budgeting-your-money</loc>
+    <loc>https://www.wagestowealth.com.au/kids/modules/budgeting-your-money</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://wagestowealth.netlify.app/kids/modules/saving-setting-goals</loc>
+    <loc>https://www.wagestowealth.com.au/kids/modules/saving-setting-goals</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://wagestowealth.netlify.app/kids/modules/banking-cards-safety</loc>
+    <loc>https://www.wagestowealth.com.au/kids/modules/banking-cards-safety</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://wagestowealth.netlify.app/kids/modules/smart-spending</loc>
+    <loc>https://www.wagestowealth.com.au/kids/modules/smart-spending</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://wagestowealth.netlify.app/kids/modules/introduction-to-investing</loc>
+    <loc>https://www.wagestowealth.com.au/kids/modules/introduction-to-investing</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://wagestowealth.netlify.app/kids/modules/debt-borrowing-bnpl</loc>
+    <loc>https://www.wagestowealth.com.au/kids/modules/debt-borrowing-bnpl</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://wagestowealth.netlify.app/kids/modules/superannuation-long-game</loc>
+    <loc>https://www.wagestowealth.com.au/kids/modules/superannuation-long-game</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://wagestowealth.netlify.app/privacy</loc>
+    <loc>https://www.wagestowealth.com.au/privacy</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://wagestowealth.netlify.app/terms</loc>
+    <loc>https://www.wagestowealth.com.au/terms</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>

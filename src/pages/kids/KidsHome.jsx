@@ -8,7 +8,14 @@ export default function KidsHome() {
       <Helmet>
         <title>Money School — Free Financial Education for Kids aged 12–16</title>
         <meta name="description" content="Money School by Wages to Wealth: 8 free lessons teaching teenagers about earning, budgeting, saving, banking, investing and superannuation. No login required." />
-        <link rel="canonical" href="https://wagestowealth.netlify.app/kids" />
+        <link rel="canonical" href="https://www.wagestowealth.com.au/kids" />
+        <meta property="og:title" content="Money School — Free Financial Education for Kids aged 12–16" />
+        <meta property="og:description" content="8 free, interactive lessons teaching Australian teenagers about money, budgeting, saving, banking, investing and superannuation. No login required." />
+        <meta property="og:url" content="https://www.wagestowealth.com.au/kids" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Wages to Wealth" />
+        <meta property="og:locale" content="en_AU" />
+        <meta name="robots" content="index, follow, max-image-preview:large" />
       </Helmet>
       {/* Hero */}
       <div className="relative overflow-hidden py-16 px-4 text-center">

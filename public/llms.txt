@@ -9,7 +9,8 @@ Wages to Wealth is a white-label financial education platform provided by employ
 - **Operator**: Sierra Bravo Capital Pty Ltd
 - **Target market**: Australian employers (SME to Enterprise) and their employees
 - **Compliance**: ASIC general advice compliant — general financial information only, no personal advice
-- **Pricing**: Starter $299/month (50 employees), Growth $599/month (200 employees), Enterprise custom
+- **Website**: https://www.wagestowealth.com.au
+- **Pricing** (per employer, not per employee; all prices include GST): Micro $149/month (up to 20 employees), Starter $299/month (up to 200 employees), Growth $599/month (up to 500 employees), Enterprise custom (500+ employees — contact sales)
 
 ## Learning Modules (18 total)
 
