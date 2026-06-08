@@ -49,6 +49,26 @@ exports.handler = async (event) => {
       }
     }
 
+    if (stripeEvent.type === 'customer.subscription.updated') {
+      const sub = stripeEvent.data.object
+      const { employer_id } = sub.metadata || {}
+      if (employer_id) {
+        // Map Stripe subscription status to our status
+        const statusMap = {
+          active: 'active',
+          past_due: 'past_due',
+          canceled: 'cancelled',
+          unpaid: 'past_due',
+          paused: 'past_due',
+        }
+        const newStatus = statusMap[sub.status] || 'active'
+        await supabaseAdmin
+          .from('employers')
+          .update({ subscription_status: newStatus })
+          .eq('id', employer_id)
+      }
+    }
+
     if (stripeEvent.type === 'invoice.payment_failed') {
       const invoice = stripeEvent.data.object
       const { employer_id } = invoice.subscription_details?.metadata || {}
