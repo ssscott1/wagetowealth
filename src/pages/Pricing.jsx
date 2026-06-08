@@ -379,43 +379,6 @@ export default function Pricing() {
           ))}
         </div>
 
-        {/* ── Comparison table ── */}
-        <div className="mb-14">
-          <h2 className="text-2xl font-bold text-[#0F2B5B] mb-2 text-center" style={{ fontFamily: 'DM Sans' }}>
-            What's included at every tier?
-          </h2>
-          <p className="text-gray-400 text-sm text-center mb-6">Full feature comparison across all plans</p>
-
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="bg-[#0F2B5B] text-white">
-                    <th className="px-4 py-3 text-left font-semibold text-xs uppercase tracking-wide sticky left-0 bg-[#0F2B5B] min-w-[160px]">Feature</th>
-                    {['Micro', 'Starter', 'Growth', 'Enterprise'].map(name => (
-                      <th key={name} className="px-4 py-3 text-center font-bold text-sm min-w-[100px]">{name}</th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {TABLE_ROWS.map((row, i) => (
-                    <tr key={row.feature} className={i % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}>
-                      <td className={`px-4 py-3 text-xs font-medium text-gray-600 sticky left-0 ${i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
-                        {row.feature}
-                      </td>
-                      {['micro', 'starter', 'growth', 'enterprise'].map(tier => (
-                        <td key={tier} className="px-4 py-3 text-center">
-                          <TableCell value={row[tier]} />
-                        </td>
-                      ))}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-
         {/* ── FAQ ── */}
         <div className="max-w-3xl mx-auto mb-14">
           <h2 className="text-2xl font-bold text-[#0F2B5B] mb-2 text-center" style={{ fontFamily: 'DM Sans' }}>
