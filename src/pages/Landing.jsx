@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom'
 import SEO from '../components/ui/SEO'
 
 const features = [
-  { icon: '📚', title: '10 Expert Modules', desc: 'Budgeting, mortgages, super, shares — comprehensive financial education designed for Australian employees.' },
-  { icon: '🧮', title: '10 Live Calculators', desc: 'Mortgage repayments, savings goals, debt payoff, and more — all fully functional and client-side.' },
+  { icon: '📚', title: '18 Expert Modules', desc: 'Budgeting, mortgages, super, shares — comprehensive financial education designed for Australian employees.' },
+  { icon: '🧮', title: '17 Live Calculators', desc: 'Mortgage repayments, savings goals, debt payoff, and more — all fully functional and client-side.' },
   { icon: '🎮', title: 'Gamified Quizzes', desc: 'Earn badges, track your Financial Literacy Score, and climb the anonymous leaderboard.' },
   { icon: '✅', title: 'ASIC Compliant', desc: 'General information only. No personal advice, no product endorsements. Safe for employer distribution.' },
   { icon: '🏢', title: 'White-Label Ready', desc: 'Add your company logo and branding. Employees see your name, not ours.' },
@@ -11,9 +11,9 @@ const features = [
 ]
 
 const PLANS = [
-  { name: 'Micro', price: '$149', period: '/mo + GST', employees: 'Up to 20 employees', features: ['All 18 modules', 'All 17 calculators', 'Quiz engine + Literacy Score', 'Employee & employer dashboards', 'Email support'], cta: 'Start Free Trial', id: 'micro' },
-  { name: 'Starter', price: '$299', period: '/mo + GST', employees: 'Up to 200 employees', features: ['Everything in Micro', 'Custom employer branding', 'Shareable invite link', 'Standard analytics', 'Email + chat support'], cta: 'Start Free Trial', popular: true, id: 'starter' },
-  { name: 'Growth', price: '$599', period: '/mo + GST', employees: 'Up to 500 employees', features: ['Everything in Starter', 'Advanced analytics + CSV export', 'Department-level reporting', 'Priority support', 'Quarterly review call'], cta: 'Get Started', id: 'growth' },
+  { name: 'Micro', price: '$149', period: '/mo incl. GST', employees: 'Up to 20 employees', features: ['All 18 modules', 'All 17 calculators', 'Quiz engine + Literacy Score', 'Employee & employer dashboards', 'Email support'], cta: 'Get Started', id: 'micro' },
+  { name: 'Starter', price: '$299', period: '/mo incl. GST', employees: 'Up to 200 employees', features: ['Everything in Micro', 'Custom employer branding', 'Shareable invite link', 'Standard analytics', 'Email + chat support'], cta: 'Get Started', popular: true, id: 'starter' },
+  { name: 'Growth', price: '$599', period: '/mo incl. GST', employees: 'Up to 500 employees', features: ['Everything in Starter', 'Advanced analytics + CSV export', 'Department-level reporting', 'Priority support', 'Quarterly review call'], cta: 'Get Started', id: 'growth' },
 ]
 
 export default function Landing() {
@@ -44,7 +44,7 @@ export default function Landing() {
               Set Up My Team →
             </Link>
           </div>
-          <p className="text-white/40 text-sm mt-4">See exactly what your employees experience · Plans from $149/month + GST</p>
+          <p className="text-white/40 text-sm mt-4">See exactly what your employees experience · Plans from $149/month incl. GST</p>
         </div>
       </section>
 
@@ -103,7 +103,7 @@ export default function Landing() {
           </div>
           <div className="text-center mt-10">
             <Link to="/register/employer" className="bg-[#0F2B5B] text-white px-8 py-3.5 rounded-xl font-bold hover:bg-[#1a3d7c] transition-colors inline-block">
-              Get Started Free →
+              Get Started →
             </Link>
           </div>
         </div>
@@ -204,7 +204,7 @@ export default function Landing() {
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-[#0F2B5B] mb-3" style={{ fontFamily: 'DM Sans' }}>Simple, transparent pricing</h2>
-            <p className="text-gray-500">All plans include a 30-day free trial. No lock-in contracts.</p>
+            <p className="text-gray-500">No lock-in contracts. Cancel anytime.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {PLANS.map(plan => (
@@ -263,9 +263,9 @@ export default function Landing() {
       <section className="py-16 px-4 bg-[#D4A017]">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-3xl font-bold text-[#0F2B5B] mb-3" style={{ fontFamily: 'DM Sans' }}>Ready to invest in your team's financial future?</h2>
-          <p className="text-[#0F2B5B]/70 mb-6">Start your 30-day free trial today. Setup takes under 5 minutes.</p>
+          <p className="text-[#0F2B5B]/70 mb-6">Setup takes under 5 minutes. No lock-in contracts.</p>
           <Link to="/register/employer" className="bg-[#0F2B5B] text-white px-8 py-3.5 rounded-xl font-bold text-lg hover:bg-[#1a3d7c] transition-colors inline-block">
-            Get Started Free
+            Get Started →
           </Link>
         </div>
       </section>

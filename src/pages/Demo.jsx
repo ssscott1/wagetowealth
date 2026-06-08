@@ -44,9 +44,9 @@ function EmployerCTA({ label = 'Give your team this experience' }) {
       <h3 className="text-xl font-bold mb-4" style={{ fontFamily: 'DM Sans' }}>{label}</h3>
       <Link to="/register/employer"
         className="bg-[#D4A017] text-[#0F2B5B] px-8 py-3 rounded-xl font-bold text-sm hover:bg-yellow-400 transition-colors inline-block">
-        Start Free — Set Up Your Team Today →
+        Set Up Your Team Today →
       </Link>
-      <p className="text-xs text-white/40 mt-3">No credit card required to explore. Paid plans start at $299/month.</p>
+      <p className="text-xs text-white/40 mt-3">Plans from $149/month incl. GST · Setup in under 5 minutes.</p>
     </div>
   )
 }
@@ -392,7 +392,7 @@ export default function Demo() {
             className="bg-[#0F2B5B] text-white px-10 py-4 rounded-xl font-bold text-lg hover:bg-[#1a3d7c] transition-colors inline-block shadow-lg">
             Set Up My Team Now →
           </Link>
-          <p className="text-[#0F2B5B]/50 text-xs mt-3">Plans from $299/month · Setup in under 5 minutes · ASIC compliant</p>
+          <p className="text-[#0F2B5B]/50 text-xs mt-3">Plans from $149/month incl. GST · Setup in under 5 minutes · ASIC compliant</p>
         </div>
       </div>
     </div>
