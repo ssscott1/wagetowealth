@@ -14,9 +14,9 @@ const PLANS = [
     annualTotal: 1524,
     annualSaving: 264,
     employees: 'Up to 20 employees',
-    cta: 'Start Free Trial',
+    cta: 'Get Started',
     ctaStyle: 'gold',
-    trial: '14-day free trial. No credit card required.',
+    trial: null,
     includes: [
       'Unlimited employee access (up to 20)',
       'All 18 financial literacy modules',
@@ -43,9 +43,9 @@ const PLANS = [
     annualTotal: 3048,
     annualSaving: 540,
     employees: 'Up to 200 employees',
-    cta: 'Start Free Trial',
+    cta: 'Get Started',
     ctaStyle: 'gold',
-    trial: '14-day free trial. No credit card required.',
+    trial: null,
     includes: [
       'Unlimited employee access (up to 200)',
       'All 18 financial literacy modules',
@@ -77,7 +77,7 @@ const PLANS = [
     employees: 'Up to 500 employees',
     cta: 'Get Started',
     ctaStyle: 'gold',
-    trial: '14-day free trial. No credit card required.',
+    trial: null,
     includes: [
       'Unlimited employee access (up to 500)',
       'All 18 financial literacy modules',
@@ -161,8 +161,8 @@ const TABLE_ROWS = [
 
 const FAQS = [
   {
-    q: 'Is there really a free trial with no credit card?',
-    a: 'Yes. Every plan except Enterprise comes with a 14-day free trial. You can add employees, explore all the modules and calculators, and run quizzes — no credit card required. At the end of the trial you choose a plan and enter payment details to continue.',
+    q: 'How quickly can we get started?',
+    a: 'Setup takes less than 5 minutes. Register with your work email, choose a plan, complete payment, and you can immediately invite your team via a shareable link. No IT work required.',
   },
   {
     q: 'What happens if we grow past our employee limit?',
@@ -364,7 +364,7 @@ export default function Pricing() {
                 <div className="mt-auto pt-4 border-t border-gray-50">
                   <Link
                     to={ctaLink(plan)}
-                    className={`block text-center py-3 rounded-xl font-bold text-sm transition-colors mb-2 ${
+                    className={`block text-center py-3 rounded-xl font-bold text-sm transition-colors ${
                       plan.ctaStyle === 'gold'
                         ? 'bg-[#D4A017] text-[#0F2B5B] hover:bg-yellow-400'
                         : 'border-2 border-[#0F2B5B] text-[#0F2B5B] hover:bg-[#0F2B5B] hover:text-white'
@@ -372,7 +372,6 @@ export default function Pricing() {
                   >
                     {plan.cta} →
                   </Link>
-                  <p className="text-[10px] text-gray-400 text-center">{plan.trial}</p>
                 </div>
               </div>
             </div>
@@ -438,19 +437,19 @@ export default function Pricing() {
             Ready to give your team a financial advantage?
           </h2>
           <p className="text-gray-500 mb-7 max-w-xl mx-auto">
-            Join forward-thinking Australian employers investing in their people's financial wellbeing. Start your free 14-day trial today.
+            Join forward-thinking Australian employers investing in their people's financial wellbeing.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link to="/register/employer"
               className="bg-[#D4A017] text-[#0F2B5B] px-8 py-3.5 rounded-xl font-bold text-lg hover:bg-yellow-400 transition-colors shadow-md">
-              Start Free Trial →
+              Get Started →
             </Link>
             <Link to="/demo"
               className="border-2 border-[#0F2B5B] text-[#0F2B5B] px-8 py-3.5 rounded-xl font-bold text-lg hover:bg-[#0F2B5B] hover:text-white transition-colors">
               Book a Demo
             </Link>
           </div>
-          <p className="text-gray-400 text-xs mt-4">No credit card required. Setup takes less than 5 minutes. Cancel anytime.</p>
+          <p className="text-gray-400 text-xs mt-4">Setup takes less than 5 minutes. No lock-in contracts.</p>
         </div>
       </div>
     </div>
