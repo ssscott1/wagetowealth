@@ -93,9 +93,6 @@ export default function Navbar() {
                   <Link to="/dashboard" className="text-white/80 hover:text-white text-sm transition-colors">Dashboard</Link>
                   <Link to="/modules" className="text-white/80 hover:text-white text-sm transition-colors">Modules</Link>
                   <Link to="/calculators" className="text-white/80 hover:text-white text-sm transition-colors">Calculators</Link>
-                  <Link to="/get-help" className="bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors">
-                    🆘 Get Help
-                  </Link>
                 </>
               )}
               {role === 'employer_admin' && (
@@ -145,7 +142,6 @@ export default function Navbar() {
                   <Link to="/dashboard" className="block py-2.5 text-white/80 text-sm" onClick={() => setMenuOpen(false)}>Dashboard</Link>
                   <Link to="/modules" className="block py-2.5 text-white/80 text-sm" onClick={() => setMenuOpen(false)}>Modules</Link>
                   <Link to="/calculators" className="block py-2.5 text-white/80 text-sm" onClick={() => setMenuOpen(false)}>Calculators</Link>
-                  <Link to="/get-help" className="block py-2.5 text-red-400 text-sm font-semibold" onClick={() => setMenuOpen(false)}>🆘 Get Help</Link>
                 </>
               )}
               {role === 'employer_admin' && (
