@@ -27,12 +27,17 @@ exports.handler = async (event) => {
     return { statusCode: 400, headers, body: JSON.stringify({ error: 'Invalid request body' }) }
   }
 
-  const { email, password, companyName, domain, accessCode } = body
+  const { email, password, companyName, domain, accessCode, verifyOnly } = body
 
-  // Simple access gate — set FREE_TRIAL_CODE in Netlify env vars
+  // Validate access code first — used by the client gate (verifyOnly=true) and full submit
   const expectedCode = process.env.FREE_TRIAL_CODE
   if (!expectedCode || accessCode !== expectedCode) {
     return { statusCode: 403, headers, body: JSON.stringify({ error: 'Invalid access code.' }) }
+  }
+
+  // Client is just verifying the code — return early before touching Supabase
+  if (verifyOnly) {
+    return { statusCode: 400, headers, body: JSON.stringify({ error: 'Missing required fields' }) }
   }
 
   if (!email || !password || !companyName || !domain) {
@@ -72,7 +77,6 @@ exports.handler = async (event) => {
         slug,
         domain,
         subscription_status: 'active',
-        subscription_plan: 'growth', // full access during trial
       })
       .select()
       .single()

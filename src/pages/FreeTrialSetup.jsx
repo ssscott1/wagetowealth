@@ -11,7 +11,7 @@ const FREE_DOMAINS = new Set([
 function domainToCompanyName(domain) {
   const withoutTld = domain.replace(/\.(com\.au|net\.au|org\.au|edu\.au|gov\.au|com|net|org|io|co|app)$/, '')
   return withoutTld
-    .replace(/[-_]/g, ' ')
+    .replace(/[-_.]/g, ' ')
     .replace(/([a-z])([A-Z])/g, '$1 $2')
     .replace(/\b\w/g, c => c.toUpperCase())
     .trim()
@@ -94,15 +94,25 @@ export default function FreeTrialSetup() {
           </div>
           <h1 className="text-lg font-bold text-[#0F2B5B] mb-1">Internal Setup</h1>
           <p className="text-sm text-gray-500 mb-6">Enter your access code to continue.</p>
-          <form onSubmit={e => {
+          <form onSubmit={async e => {
             e.preventDefault()
-            // We verify the code server-side on submit, but do a quick client gate too
-            if (accessCode.trim().length < 4) {
-              setCodeError('Enter a valid access code.')
-              return
+            if (!accessCode.trim()) { setCodeError('Enter your access code.'); return }
+            setCodeError('Checking…')
+            try {
+              const res = await fetch('/api/free-employer', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ verifyOnly: true, accessCode }),
+              })
+              const data = await res.json()
+              if (res.status === 403) { setCodeError('Incorrect access code.'); return }
+              if (!res.ok && res.status !== 400) { setCodeError('Server error. Try again.'); return }
+              // 400 = missing fields (expected for verifyOnly), means code was accepted
+              setCodeError('')
+              setCodeVerified(true)
+            } catch {
+              setCodeError('Network error. Try again.')
             }
-            setCodeError('')
-            setCodeVerified(true)
           }}>
             <input
               type="password"
