@@ -19,6 +19,12 @@
   force = true
 
 [[redirects]]
+  from = "/api/free-employer"
+  to = "/.netlify/functions/free-employer"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
