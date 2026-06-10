@@ -1,7 +1,7 @@
 export default function LiteracyGauge({ score = 0 }) {
   const tiers = [
-    { label: 'Beginner', min: 0, max: 39, color: '#ef4444' },
-    { label: 'Building', min: 40, max: 59, color: '#f97316' },
+    { label: 'Beginner', min: 0, max: 39, color: '#D4A017' },
+    { label: 'Building', min: 40, max: 59, color: '#f59e0b' },
     { label: 'Capable', min: 60, max: 79, color: '#eab308' },
     { label: 'Confident', min: 80, max: 89, color: '#22c55e' },
     { label: 'Expert', min: 90, max: 100, color: '#0F2B5B' },

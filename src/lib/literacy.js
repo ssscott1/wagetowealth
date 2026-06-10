@@ -26,6 +26,6 @@ export function literacyTier(score) {
   if (score >= 90) return { label: 'Expert', color: '#0F2B5B' }
   if (score >= 80) return { label: 'Confident', color: '#22c55e' }
   if (score >= 60) return { label: 'Capable', color: '#eab308' }
-  if (score >= 40) return { label: 'Building', color: '#f97316' }
-  return { label: 'Beginner', color: '#ef4444' }
+  if (score >= 40) return { label: 'Building', color: '#f59e0b' }
+  return { label: 'Beginner', color: '#D4A017' }
 }

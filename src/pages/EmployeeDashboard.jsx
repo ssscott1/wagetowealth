@@ -64,22 +64,17 @@ export default function EmployeeDashboard() {
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
       {/* Welcome */}
-      <div className="bg-[#0F2B5B] text-white rounded-2xl p-6 mb-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold mb-1" style={{ fontFamily: 'DM Sans' }}>
-            Welcome back, {firstName} 👋
-          </h1>
-          <p className="text-white/70 text-sm">
-            {completedCount === 0
-              ? "Let's get started on your first module"
-              : completedCount === TOTAL_MODULES
-                ? "You've completed every module — incredible work! 🏆"
-                : `You've completed ${completedCount} of ${TOTAL_MODULES} modules. Keep it up!`}
-          </p>
-        </div>
-        <Link to="/get-help" className="bg-red-500 hover:bg-red-600 text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition-colors flex-shrink-0">
-          🆘 Get Help
-        </Link>
+      <div className="bg-[#0F2B5B] text-white rounded-2xl p-6 mb-6">
+        <h1 className="text-2xl font-bold mb-1" style={{ fontFamily: 'DM Sans' }}>
+          Welcome back, {firstName} 👋
+        </h1>
+        <p className="text-white/70 text-sm">
+          {completedCount === 0
+            ? "Let's get started on your first module"
+            : completedCount === TOTAL_MODULES
+              ? "You've completed every module — incredible work! 🏆"
+              : `You've completed ${completedCount} of ${TOTAL_MODULES} modules. Keep it up!`}
+        </p>
       </div>
 
       {/* Top stat row */}
@@ -148,6 +143,28 @@ export default function EmployeeDashboard() {
         </div>
       </div>
 
+      {/* Calculators */}
+      <div className="bg-gradient-to-r from-[#0F2B5B] to-[#1a3d7c] rounded-2xl p-6 mb-6">
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <h2 className="font-bold text-white text-base" style={{ fontFamily: 'DM Sans' }}>17 Live Calculators</h2>
+            <p className="text-white/60 text-xs mt-0.5">Mortgage, super, salary packaging, debt payoff and more — all instant, all private</p>
+          </div>
+          <Link to="/calculators" className="text-[#D4A017] text-sm font-bold hover:underline whitespace-nowrap">
+            View all →
+          </Link>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
+          {CALCULATORS.map(c => (
+            <Link key={c.slug} to={`/calculators#${c.slug}`}
+              className="flex flex-col items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/10 hover:border-[#D4A017]/50 px-3 py-4 rounded-xl transition-all text-center group">
+              <span className="text-2xl">{c.icon}</span>
+              <span className="text-white text-xs font-semibold group-hover:text-[#D4A017] transition-colors">{c.label}</span>
+            </Link>
+          ))}
+        </div>
+      </div>
+
       {/* Module progress grid */}
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 mb-6">
         <h2 className="font-bold text-[#0F2B5B] text-sm uppercase tracking-wide mb-4">All Modules</h2>
@@ -160,32 +177,16 @@ export default function EmployeeDashboard() {
               <Link key={m.id} to={`/modules/${m.slug}`}
                 className={`relative rounded-xl p-3 text-center transition-all hover:shadow-md ${
                   done ? 'bg-green-50 border-2 border-green-300'
-                    : inProgress ? 'bg-orange-50 border-2 border-orange-200'
+                    : inProgress ? 'bg-yellow-50 border-2 border-yellow-200'
                     : 'bg-gray-50 border-2 border-transparent hover:border-gray-200'
                 }`}>
                 <div className="text-2xl mb-1">{m.icon}</div>
                 <div className="text-xs font-medium text-gray-600 leading-tight">{m.title}</div>
                 {done && <div className="text-green-600 text-xs mt-1 font-semibold">✓ {best}%</div>}
-                {inProgress && <div className="text-orange-500 text-xs mt-1 font-semibold">{best}% · retry</div>}
+                {inProgress && <div className="text-yellow-600 text-xs mt-1 font-semibold">{best}% · retry</div>}
               </Link>
             )
           })}
-        </div>
-      </div>
-
-      {/* Quick calculators */}
-      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 mb-6">
-        <h2 className="font-bold text-[#0F2B5B] text-sm uppercase tracking-wide mb-3">Quick Calculators</h2>
-        <div className="flex gap-3 flex-wrap">
-          {CALCULATORS.map(c => (
-            <Link key={c.slug} to={`/calculators#${c.slug}`}
-              className="flex items-center gap-2 bg-gray-50 hover:bg-blue-50 border border-gray-200 hover:border-[#0F2B5B] px-4 py-2.5 rounded-xl text-sm font-medium transition-all">
-              <span>{c.icon}</span><span>{c.label}</span>
-            </Link>
-          ))}
-          <Link to="/calculators" className="text-[#0F2B5B] text-sm font-semibold px-4 py-2.5 hover:underline">
-            All calculators →
-          </Link>
         </div>
       </div>
 
