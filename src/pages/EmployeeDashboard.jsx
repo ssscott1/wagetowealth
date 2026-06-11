@@ -63,6 +63,23 @@ export default function EmployeeDashboard() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
+      {/* Completion celebration banner */}
+      {completedCount >= TOTAL_MODULES && (
+        <div className="bg-gradient-to-r from-[#D4A017] to-yellow-400 rounded-2xl p-5 mb-6 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg">
+          <div className="flex items-center gap-4">
+            <span className="text-4xl">🎓</span>
+            <div>
+              <h2 className="font-bold text-[#0F2B5B] text-lg" style={{ fontFamily: 'DM Sans' }}>You've completed the program!</h2>
+              <p className="text-[#0F2B5B]/70 text-sm">Your Certificate of Completion is ready to download.</p>
+            </div>
+          </div>
+          <Link to="/certificate"
+            className="flex-shrink-0 bg-[#0F2B5B] text-white px-6 py-2.5 rounded-xl font-bold text-sm hover:bg-[#1a3d7c] transition-colors whitespace-nowrap">
+            View Certificate →
+          </Link>
+        </div>
+      )}
+
       {/* Welcome */}
       <div className="bg-[#0F2B5B] text-white rounded-2xl p-6 mb-6">
         <h1 className="text-2xl font-bold mb-1" style={{ fontFamily: 'DM Sans' }}>
@@ -118,7 +135,11 @@ export default function EmployeeDashboard() {
             <div className="flex-1 flex flex-col items-center justify-center text-center">
               <div className="text-4xl mb-2">🏆</div>
               <p className="text-sm text-white/80 font-semibold">All modules complete!</p>
-              <p className="text-white/50 text-xs mt-1">Revisit any module to keep your knowledge sharp.</p>
+              <p className="text-white/50 text-xs mt-1 mb-4">Your certificate is ready to download.</p>
+              <Link to="/certificate"
+                className="bg-[#D4A017] text-[#0F2B5B] px-4 py-2.5 rounded-xl text-sm font-bold hover:bg-yellow-400 transition-colors">
+                View Certificate 🎓
+              </Link>
             </div>
           )}
         </div>

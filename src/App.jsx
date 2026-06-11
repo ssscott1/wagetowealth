@@ -22,6 +22,7 @@ import Terms from './pages/Terms'
 import Demo from './pages/Demo'
 import CheckoutSuccess from './pages/auth/CheckoutSuccess'
 import FreeTrialSetup from './pages/FreeTrialSetup'
+import Certificate from './pages/Certificate'
 import Contact from './pages/Contact'
 import KidsHome from './pages/kids/KidsHome'
 import KidsModuleList from './pages/kids/KidsModuleList'
@@ -65,6 +66,7 @@ function AppRoutes() {
         <Route path="/demo" element={<Demo />} />
         <Route path="/checkout/success" element={<CheckoutSuccess />} />
         <Route path="/free" element={<FreeTrialSetup />} />
+        <Route path="/certificate" element={<ProtectedRoute><Certificate /></ProtectedRoute>} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
         <Route path="/modules" element={<ProtectedRoute><ModuleList /></ProtectedRoute>} />
